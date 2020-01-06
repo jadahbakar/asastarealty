@@ -1,0 +1,6 @@
+{
+  "name": "Labelku",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./Labelku.js"
+}

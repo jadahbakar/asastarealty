@@ -1,0 +1,6 @@
+{
+  "name": "LogoSVG",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./LogoSVG.js"
+}

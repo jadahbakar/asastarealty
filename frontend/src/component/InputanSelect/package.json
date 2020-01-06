@@ -1,0 +1,6 @@
+{
+  "name": "InputanSelect",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./InputanSelect.js"
+}
