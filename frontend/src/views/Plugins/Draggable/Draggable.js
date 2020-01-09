@@ -1,3 +1,4 @@
+/* global localStorage */
 import React, { Component } from 'react'
 import { Button, Card, CardBody, CardHeader } from 'reactstrap'
 import { Responsive, WidthProvider } from 'react-grid-layout'

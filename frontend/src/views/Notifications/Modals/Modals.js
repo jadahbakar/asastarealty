@@ -85,28 +85,28 @@ class Modals extends Component {
 Bootstrap Modals
               </CardHeader>
               <CardBody>
-                <Button onClick={this.toggle} className='mr-1'>
+                <Button onClick={this.toggle()} className='mr-1'>
                   Launch demo modal
                 </Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                  <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                  <ModalHeader toggle={this.toggle()}>Modal title</ModalHeader>
                   <ModalBody>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
                     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                   </ModalBody>
                   <ModalFooter>
-                    <Button color='primary' onClick={this.toggle}>
+                    <Button color='primary' onClick={this.toggle()}>
                       Do Something
                     </Button>
                     {' '}
-                    <Button color='secondary' onClick={this.toggle}>
+                    <Button color='secondary' onClick={this.toggle()}>
                       Cancel
                     </Button>
                   </ModalFooter>
                 </Modal>
 
-                <Button onClick={this.toggleLarge} className='mr-1'>
+                <Button onClick={this.toggleLarge()} className='mr-1'>
                   Launch large modal
                 </Button>
                 <Modal isOpen={this.state.large} toggle={this.toggleLarge} className={`modal-lg ${this.props.className}`}>
@@ -117,17 +117,17 @@ Bootstrap Modals
                     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                   </ModalBody>
                   <ModalFooter>
-                    <Button color='primary' onClick={this.toggleLarge}>
+                    <Button color='primary' onClick={this.toggleLarge()}>
                       Do Something
                     </Button>
                     {' '}
-                    <Button color='secondary' onClick={this.toggleLarge}>
+                    <Button color='secondary' onClick={this.toggleLarge()}>
                       Cancel
                     </Button>
                   </ModalFooter>
                 </Modal>
 
-                <Button onClick={this.toggleSmall} className='mr-1'>
+                <Button onClick={this.toggleSmall()} className='mr-1'>
                   Launch small modal
                 </Button>
                 <Modal isOpen={this.state.small} toggle={this.toggleSmall} className={`modal-sm ${this.props.className}`}>
@@ -138,11 +138,11 @@ Bootstrap Modals
                     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                   </ModalBody>
                   <ModalFooter>
-                    <Button color='primary' onClick={this.toggleSmall}>
+                    <Button color='primary' onClick={this.toggleSmall()}>
                       Do Something
                     </Button>
                     {' '}
-                    <Button color='secondary' onClick={this.toggleSmall}>
+                    <Button color='secondary' onClick={this.toggleSmall()}>
                       Cancel
                     </Button>
                   </ModalFooter>
@@ -150,7 +150,7 @@ Bootstrap Modals
 
                 <hr />
 
-                <Button color='primary' onClick={this.togglePrimary} className='mr-1'>
+                <Button color='primary' onClick={this.togglePrimary()} className='mr-1'>
                   Primary modal
                 </Button>
                 <Modal isOpen={this.state.primary} toggle={this.togglePrimary} className={`modal-primary ${this.props.className}`}>
@@ -161,17 +161,17 @@ Bootstrap Modals
                     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                   </ModalBody>
                   <ModalFooter>
-                    <Button color='primary' onClick={this.togglePrimary}>
+                    <Button color='primary' onClick={this.togglePrimary()}>
                       Do Something
                     </Button>
                     {' '}
-                    <Button color='secondary' onClick={this.togglePrimary}>
+                    <Button color='secondary' onClick={this.togglePrimary()}>
                       Cancel
                     </Button>
                   </ModalFooter>
                 </Modal>
 
-                <Button color='success' onClick={this.toggleSuccess} className='mr-1'>
+                <Button color='success' onClick={this.toggleSuccess()} className='mr-1'>
                   Success modal
                 </Button>
                 <Modal isOpen={this.state.success} toggle={this.toggleSuccess} className={`modal-success ${this.props.className}`}>
@@ -182,17 +182,17 @@ Bootstrap Modals
                     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                   </ModalBody>
                   <ModalFooter>
-                    <Button color='success' onClick={this.toggleSuccess}>
+                    <Button color='success' onClick={this.toggleSuccess()}>
                       Do Something
                     </Button>
                     {' '}
-                    <Button color='secondary' onClick={this.toggleSuccess}>
+                    <Button color='secondary' onClick={this.toggleSuccess()}>
                       Cancel
                     </Button>
                   </ModalFooter>
                 </Modal>
 
-                <Button color='warning' onClick={this.toggleWarning} className='mr-1'>
+                <Button color='warning' onClick={this.toggleWarning()} className='mr-1'>
                   Warning modal
                 </Button>
                 <Modal isOpen={this.state.warning} toggle={this.toggleWarning} className={`modal-warning ${this.props.className}`}>
@@ -203,17 +203,17 @@ Bootstrap Modals
                     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                   </ModalBody>
                   <ModalFooter>
-                    <Button color='warning' onClick={this.toggleWarning}>
+                    <Button color='warning' onClick={this.toggleWarning()}>
                       Do Something
                     </Button>
                     {' '}
-                    <Button color='secondary' onClick={this.toggleWarning}>
+                    <Button color='secondary' onClick={this.toggleWarning()}>
                       Cancel
                     </Button>
                   </ModalFooter>
                 </Modal>
 
-                <Button color='danger' onClick={this.toggleDanger} className='mr-1'>
+                <Button color='danger' onClick={this.toggleDanger()} className='mr-1'>
                   Danger modal
                 </Button>
                 <Modal isOpen={this.state.danger} toggle={this.toggleDanger} className={`modal-danger ${this.props.className}`}>
@@ -224,32 +224,32 @@ Bootstrap Modals
                     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                   </ModalBody>
                   <ModalFooter>
-                    <Button color='danger' onClick={this.toggleDanger}>
+                    <Button color='danger' onClick={this.toggleDanger()}>
                       Do Something
                     </Button>
                     {' '}
-                    <Button color='secondary' onClick={this.toggleDanger}>
+                    <Button color='secondary' onClick={this.toggleDanger()}>
                       Cancel
                     </Button>
                   </ModalFooter>
                 </Modal>
 
-                <Button color='info' onClick={this.toggleInfo} className='mr-1'>
+                <Button color='info' onClick={this.toggleInfo()} className='mr-1'>
                   Info modal
                 </Button>
-                <Modal isOpen={this.state.info} toggle={this.toggleInfo} className={`modal-info ${this.props.className}`}>
-                  <ModalHeader toggle={this.toggleInfo}>Modal title</ModalHeader>
+                <Modal isOpen={this.state.info} toggle={this.toggleInfo()} className={`modal-info ${this.props.className}`}>
+                  <ModalHeader toggle={this.toggleInfo()}>Modal title</ModalHeader>
                   <ModalBody>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
                     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                   </ModalBody>
                   <ModalFooter>
-                    <Button color='primary' onClick={this.toggleInfo}>
+                    <Button color='primary' onClick={this.toggleInfo()}>
                       Do Something
                     </Button>
                     {' '}
-                    <Button color='secondary' onClick={this.toggleInfo}>
+                    <Button color='secondary' onClick={this.toggleInfo()}>
                       Cancel
                     </Button>
                   </ModalFooter>

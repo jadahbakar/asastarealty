@@ -11,7 +11,9 @@ const propTypes = {
 const defaultProps = {}
 
 const DefaultAside = () => {
+  // eslint-disable-next-line no-unused-vars
   const [activeTab, setActiveTab] = useState('1')
+  // eslint-disable-next-line no-unused-vars
   const [toggle, setToggle] = useState()
 
   const content = (

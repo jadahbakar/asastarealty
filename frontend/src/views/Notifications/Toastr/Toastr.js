@@ -73,24 +73,24 @@ Toastr
           </CardHeader>
           <CardBody>
             <p>React Toastify component</p>
-            <Button color='secondary' className='mr-1' onClick={this.notify}>
+            <Button color='secondary' className='mr-1' onClick={this.notify()}>
               Notify
             </Button>
-            <Button color='danger' className='mr-1' onClick={this.error}>
+            <Button color='danger' className='mr-1' onClick={this.error()}>
               Error
             </Button>
-            <Button color='info' className='mr-1' onClick={this.info}>
+            <Button color='info' className='mr-1' onClick={this.info()}>
               Info
             </Button>
-            <Button color='success' className='mr-1' onClick={this.success}>
+            <Button color='success' className='mr-1' onClick={this.success()}>
               Success
             </Button>
-            <Button color='warning' className='mr-1' onClick={this.warn}>
+            <Button color='warning' className='mr-1' onClick={this.warn()}>
               Warning
             </Button>
           </CardBody>
           <CardFooter>
-            <Button color='primary' onClick={this.clear}>
+            <Button color='primary' onClick={this.clear()}>
               Clear All
             </Button>
           </CardFooter>

@@ -79,7 +79,7 @@ class Collapses extends Component {
                   </a>
                 </div>
               </CardHeader>
-              <Collapse isOpen={this.state.collapse} onEntering={this.onEntering} onEntered={this.onEntered} onExiting={this.onExiting} onExited={this.onExited}>
+              <Collapse isOpen={this.state.collapse} onEntering={this.onEntering()} onEntered={this.onEntered()} onExiting={this.onExiting()} onExited={this.onExited()}>
                 <CardBody>
                   <p>
                     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes
@@ -96,7 +96,7 @@ class Collapses extends Component {
                 </CardBody>
               </Collapse>
               <CardFooter>
-                <Button color='primary' onClick={this.toggle} className='mb-1' id='toggleCollapse1'>
+                <Button color='primary' onClick={this.toggle()} className='mb-1' id='toggleCollapse1'>
                   Toggle
                 </Button>
                 <hr />
@@ -122,7 +122,7 @@ Current state:
                 </Fade>
               </CardBody>
               <CardFooter>
-                <Button color='primary' onClick={this.toggleFade} id='toggleFade1'>
+                <Button color='primary' onClick={this.toggleFade()} id='toggleFade1'>
                   Toggle Fade
                 </Button>
               </CardFooter>

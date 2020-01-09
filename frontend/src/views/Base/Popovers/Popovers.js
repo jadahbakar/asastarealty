@@ -20,7 +20,7 @@ class PopoverItem extends Component {
   render () {
     return (
       <span>
-        <Button className='mr-1' color='secondary' id={`Popover-${this.props.id}`} onClick={this.toggle}>
+        <Button className='mr-1' color='secondary' id={`Popover-${this.props.id}`} onClick={this.toggle()}>
           {this.props.item.text}
         </Button>
         <Popover
@@ -87,7 +87,7 @@ class Popovers extends Component {
             </div>
           </CardHeader>
           <CardBody>
-            <Button id='Popover1' onClick={this.toggle}>
+            <Button id='Popover1' onClick={this.toggle()}>
               Launch Popover
             </Button>
             <Popover placement='bottom' isOpen={this.state.popoverOpen} target='Popover1' toggle={this.toggle}>

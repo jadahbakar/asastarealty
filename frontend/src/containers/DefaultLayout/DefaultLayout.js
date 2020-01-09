@@ -1,4 +1,4 @@
-
+/* global sessionStorage */
 import React, { Suspense, useState, useEffect } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { Container } from 'reactstrap'
@@ -108,7 +108,6 @@ const DefaultLayout = props => {
           // );
         }
       })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const content = (

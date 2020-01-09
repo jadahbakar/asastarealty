@@ -1,7 +1,8 @@
+
 import React from 'react'
 import { Button, Card, CardBody, CardHeader, Col, Container, Row, Form } from 'reactstrap'
 
-import useForm from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { Inputan } from 'component'
 import Swal from 'sweetalert2'
 import axios from 'axios'
@@ -10,7 +11,7 @@ import { API_ROOT } from 'api'
 import ErrorMessage from './errorMessage'
 
 const ForgetPassword = props => {
-  const { useForm, errors, register, handleSubmit } = useForm()
+  const { errors, register, handleSubmit } = useForm()
 
   // --------------------------------------- A L E R T
   const hideAlert = () => {

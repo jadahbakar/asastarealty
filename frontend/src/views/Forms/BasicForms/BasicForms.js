@@ -1289,10 +1289,10 @@ Form Elements
                     <Button color='link' className='card-header-action btn-setting'>
                       <i className='icon-settings' />
                     </Button>
-                    <Button color='link' className='card-header-action btn-minimize' data-target='#collapseExample' onClick={this.toggle}>
+                    <Button color='link' className='card-header-action btn-minimize' data-target='#collapseExample' onClick={this.toggle()}>
                       <i className='icon-arrow-up' />
                     </Button>
-                    <Button color='link' className='card-header-action btn-close' onClick={this.toggleFade}>
+                    <Button color='link' className='card-header-action btn-close' onClick={this.toggleFade()}>
                       <i className='icon-close' />
                     </Button>
                   </div>

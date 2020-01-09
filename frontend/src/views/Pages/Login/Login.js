@@ -253,7 +253,7 @@ const BottomTitle = () => {
   const { BottomPaddingTop, BottomFont } = styles
   const content = (
     <div className='text-center' style={BottomPaddingTop}>
-      <font style={BottomFont}>© {packageJson.description} - TeknoTama [2019]</font>
+      <font style={BottomFont}>© {packageJson.description} [2019]</font>
     </div>
   )
   return content

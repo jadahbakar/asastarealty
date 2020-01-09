@@ -7,18 +7,15 @@ class User extends Component {
   render () {
     const user = usersData.find(user => user.id.toString() === this.props.match.params.id)
 
+    /* eslint-disable */
     const userDetails = user
       ? Object.entries(user)
       : [
         [
-          'id',
-          <span>
-            <i className='text-muted icon-ban' />
-            {' '}
-Not found
-          </span>
+          'id', <span> <i className='text-muted icon-ban' /> Not found</span>
         ]
       ]
+      /* eslint-enable */
 
     return (
       <div className='animated fadeIn'>
@@ -27,10 +24,7 @@ Not found
             <Card>
               <CardHeader>
                 <strong>
-                  <i className='icon-info pr-1' />
-User id:
-                  {' '}
-                  {this.props.match.params.id}
+                  <i className='icon-info pr-1' /> User id:{this.props.match.params.id}
                 </strong>
               </CardHeader>
               <CardBody>

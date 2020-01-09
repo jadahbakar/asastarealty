@@ -173,7 +173,7 @@ class AdvancedForms extends React.Component {
                 </div>
               </CardHeader>
               <CardBody>
-                <Select name='form-field-name2' value={this.state.value} options={options} onChange={this.saveChanges} multi />
+                <Select name='form-field-name2' value={this.state.value} options={options} onChange={this.saveChanges()} multi />
               </CardBody>
             </Card>
             <Card>

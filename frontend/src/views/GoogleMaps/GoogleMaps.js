@@ -74,9 +74,9 @@ class MarkerWithInfoWindow extends Component {
     const { location } = this.props
 
     return (
-      <Marker onClick={this.toggle} position={location} title={location.title} label={location.label}>
+      <Marker onClick={this.toggle()} position={location} title={location.title} label={location.label}>
         {this.state.isOpen && (
-          <InfoWindow onCloseClick={this.toggle}>
+          <InfoWindow onCloseClick={this.toggle()}>
             <NavLink href={location.www} target='_blank'>
               {location.title}
             </NavLink>
