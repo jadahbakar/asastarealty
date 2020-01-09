@@ -771,11 +771,7 @@ class Dashboard extends Component {
         <Row>
           <Col>
             <Card>
-              <CardHeader>
-Traffic
-                {' & '}
-                {' '}
-Sales
+              <CardHeader>Traffic{' & '}Sales
               </CardHeader>
               <CardBody>
                 <Row>
@@ -1017,9 +1013,7 @@ Sales
                       <td>
                         <div>Yiorgos Avraamu</div>
                         <div className="small text-muted">
-                          <span>New</span>
-                          {' '}
-| Registered: Jan 1, 2015
+                          <span>New</span>Registered: Jan 1, 2015
                         </div>
                       </td>
                       <td className="text-center">
@@ -1054,9 +1048,7 @@ Sales
                       <td>
                         <div>Avram Tarasios</div>
                         <div className="small text-muted">
-                          <span>Recurring</span>
-                          {' '}
-| Registered: Jan 1, 2015
+                          <span>Recurring</span>Registered: Jan 1, 2015
                         </div>
                       </td>
                       <td className="text-center">
@@ -1091,9 +1083,7 @@ Sales
                       <td>
                         <div>Quintin Ed</div>
                         <div className="small text-muted">
-                          <span>New</span>
-                          {' '}
-| Registered: Jan 1, 2015
+                          <span>New</span>Registered: Jan 1, 2015
                         </div>
                       </td>
                       <td className="text-center">
@@ -1128,9 +1118,7 @@ Sales
                       <td>
                         <div>Enéas Kwadwo</div>
                         <div className="small text-muted">
-                          <span>New</span>
-                          {' '}
-| Registered: Jan 1, 2015
+                          <span>New</span> Registered: Jan 1, 2015
                         </div>
                       </td>
                       <td className="text-center">
@@ -1165,9 +1153,7 @@ Sales
                       <td>
                         <div>Agapetus Tadeáš</div>
                         <div className="small text-muted">
-                          <span>New</span>
-                          {' '}
-| Registered: Jan 1, 2015
+                          <span>New</span>Registered: Jan 1, 2015
                         </div>
                       </td>
                       <td className="text-center">
@@ -1202,9 +1188,7 @@ Sales
                       <td>
                         <div>Friderik Dávid</div>
                         <div className="small text-muted">
-                          <span>New</span>
-                          {' '}
-| Registered: Jan 1, 2015
+                          <span>New</span>Registered: Jan 1, 2015
                         </div>
                       </td>
                       <td className="text-center">
