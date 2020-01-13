@@ -10,12 +10,12 @@ class Invoice extends Component {
             Invoice
             {' '}
             <strong>#90-98792</strong>
-            <a href='#' className='btn btn-sm btn-secondary mr-1 float-right'>
+            <a href='/#' className='btn btn-sm btn-secondary mr-1 float-right'>
               <i className='fa fa-print' />
               {' '}
 Print
             </a>
-            <a href='#' className='btn btn-sm btn-info mr-1 float-right'>
+            <a href='/#' className='btn btn-sm btn-info mr-1 float-right'>
               <i className='fa fa-save' />
               {' '}
 Save
@@ -141,7 +141,7 @@ Save
                     </tr>
                   </tbody>
                 </Table>
-                <a href='#' className='btn btn-success'>
+                <a href='/#' className='btn btn-success'>
                   <i className='fa fa-usd' />
                   {' '}
 Proceed to Payment

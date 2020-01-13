@@ -160,13 +160,13 @@ Spam
                   {' '}
                   <i>(2,5MB)</i>
                   <span className='menu'>
-                    <a href='#' className='fa fa-search'>
+                    <a href='/#' className='fa fa-search'>
                       {null}
                     </a>
-                    <a href='#' className='fa fa-share'>
+                    <a href='/#' className='fa fa-share'>
                       {null}
                     </a>
-                    <a href='#' className='fa fa-cloud-download'>
+                    <a href='/#' className='fa fa-cloud-download'>
                       {null}
                     </a>
                   </span>
@@ -178,13 +178,13 @@ Spam
                   {' '}
                   <i>(7KB)</i>
                   <span className='menu'>
-                    <a href='#' className='fa fa-search'>
+                    <a href='/#' className='fa fa-search'>
                       {null}
                     </a>
-                    <a href='#' className='fa fa-share'>
+                    <a href='/#' className='fa fa-share'>
                       {null}
                     </a>
-                    <a href='#' className='fa fa-cloud-download'>
+                    <a href='/#' className='fa fa-cloud-download'>
                       {null}
                     </a>
                   </span>
@@ -196,13 +196,13 @@ Spam
                   {' '}
                   <i>(984KB)</i>
                   <span className='menu'>
-                    <a href='#' className='fa fa-search'>
+                    <a href='/#' className='fa fa-search'>
                       {null}
                     </a>
-                    <a href='#' className='fa fa-share'>
+                    <a href='/#' className='fa fa-share'>
                       {null}
                     </a>
-                    <a href='#' className='fa fa-cloud-download'>
+                    <a href='/#' className='fa fa-cloud-download'>
                       {null}
                     </a>
                   </span>
