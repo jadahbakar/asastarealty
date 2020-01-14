@@ -1,3 +1,4 @@
+/* global sessionStorage */
 import React, { useState, useEffect } from 'react'
 import { API_ROOT } from 'api'
 import axios from 'axios'
@@ -83,9 +84,7 @@ const Users = () => {
       <Card>
         <CardHeader>
           <i className='fa fa-table' />
-          {' '}
-Table of
-          {titleMenu}
+          Table of {titleMenu}
           <div className='card-header-actions' />
         </CardHeader>
         <CardBody>

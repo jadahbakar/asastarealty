@@ -1,3 +1,4 @@
+/* global sessionStorage */
 import React, { useState, useEffect } from 'react'
 import { API_ROOT } from 'api'
 import axios from 'axios'

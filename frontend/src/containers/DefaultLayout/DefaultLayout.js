@@ -101,11 +101,6 @@ const DefaultLayout = props => {
           }).then(result => {
             onConfirmAlert()
           })
-
-          // showAlert(
-          //   'Warning',
-          //   'Maaf Session Anda Sudah berakhir...\n Silahkan Login Kembali...'
-          // );
         }
       })
   }, [])
