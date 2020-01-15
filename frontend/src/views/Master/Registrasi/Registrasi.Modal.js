@@ -116,11 +116,8 @@ const Body = () => {
           <ModalBody>
             <Labelku index='reg_id' title='Registrasi ID' value={data.reg_id} />
             <Labelku index='reg_nama' title='NAMA' value={data.reg_nama} />
-
             <Labelku index='reg_email' title='email' value={data.reg_email} />
-
             <Labelku index='reg_date' title='Tgl Pendaftaran' value={data.reg_date} />
-
             <Label
               htmlFor='prependedInput'
               style={titleStyle}
@@ -242,8 +239,7 @@ const Header = props => {
     <>
       <ModalHeader toggle={props.toggle}>
         <i className='fa fa-gears fa-lg' />
-        {' '}
-&nbsp;Detail
+        &nbsp;Detail
         {props.title}
       </ModalHeader>
     </>

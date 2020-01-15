@@ -2,6 +2,13 @@ import React from 'react'
 import { Button } from 'reactstrap'
 import { RegistrasiContext } from './Registrasi.Context'
 
+const styles = {
+  colStyle: {
+    marginTop: '0.5em'
+  }
+
+}
+
 const columns = [
   {
     Header: 'Reg ID',
@@ -21,12 +28,12 @@ const columns = [
   {
     Header: 'Nama',
     accessor: 'reg_nama',
-    Cell: row => <div style={{ marginTop: '0.5em' }}>{row.value}</div>
+    Cell: row => <div style={styles.colStyle}>{row.value}</div>
   },
   {
     Header: 'Email',
     accessor: 'reg_email',
-    Cell: row => <div style={{ marginTop: '0.5em' }}>{row.value}</div>
+    Cell: row => <div style={styles.colStyle}>{row.value}</div>
   },
   {
     Header: 'Tanggal',
