@@ -172,7 +172,7 @@ const postRegistrasiDetail = async (request, response, next) => {
   const { regID, regReferal } = request.body
   const token = request.headers.authorization
   const data = ext.extractJWToken(token)
-  const regApprove = data.data.user_id
+  const regApprove = data.data.userId
 
   const procReg = await db.any(
     'SELECT mst.registrasi_to_user_customer($(regID), $(regReferal), $(regApprove)) AS status',

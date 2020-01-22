@@ -7,7 +7,7 @@ const locationkeyPublic = path.join(appRoot.path, '/key/ecdsa_public_key.pem')
 const keyPublic = fs.readFileSync(locationkeyPublic, 'utf8')
 
 const extractJWToken = token => {
-  console.log(token)
+  // console.log(token)
   const data = jwt.verify(token, keyPublic)
   return data
 }
