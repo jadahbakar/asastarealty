@@ -10,7 +10,8 @@ function verifyJWTMW (request, response, next) {
     .verifyJWTToken(token)
     .then(decodedToken => {
       if (
-        decodedToken.data.initial !== 'teknotama_' ||
+        // decodedToken.data.initial !== 'teknotama_' ||
+        decodedToken.data.initial !== process.env.INIT_STARTUP ||
         decodedToken.data.granted === undefined
       ) {
         response.status(403).json({ message: 'Invalid auth token provided.' })

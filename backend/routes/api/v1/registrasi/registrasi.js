@@ -48,7 +48,8 @@ async function createRedis (token) {
 const getRegistrasi = asyncro.asyncHandler(async (request, response, next) => {
   // console.log('get')
   const payload = {
-    initial: 'teknotama_',
+    // initial: 'teknotama_',
+    initial: process.env.INIT_STARTUP,
     reqIp: request.connection.remoteAddress // ---ambil ip Address client
   }
   const token = auth.createJWToken({
@@ -104,7 +105,7 @@ const postRegistrasi = asyncro.asyncHandler(async (request, response, next) => {
       if (responseAuth.data !== null) {
         // pengecekan payload --> teknotama_ dan IP sumber harus sama
         if (
-          responseAuth.data.initial === 'teknotama_' &&
+          responseAuth.data.initial === process.env.INIT_STARTUP &&
           responseAuth.data.reqIp === request.connection.remoteAddress
         ) {
           clientRedis.del(token)

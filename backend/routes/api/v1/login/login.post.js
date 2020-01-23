@@ -46,7 +46,6 @@ function decrypt (transitmessage, pass) {
 const postLogin = asyncro.asyncHandler(async (request, response, next) => {
   // ---ambil nilai dari body
   const { userid, userpass } = request.body
-  // console.log(request.body);
   // ---ambil nilai token dari reactjs / client
   const token =
     request.body.token || request.query.token || request.headers.authorization // mengambil token di antara request
