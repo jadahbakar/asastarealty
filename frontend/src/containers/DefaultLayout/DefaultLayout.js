@@ -52,6 +52,31 @@ const DefaultLayout = props => {
     navigationx = { items: userMenu }
   }
 
+  // --------------------------------------- CHECK SESSION
+  axios.defaults.headers.common.Authorization = sessionStorage.getItem('tkn')
+  axios
+    .get(`${backEnd}`)
+    .then(response => {
+      if (response.status !== 200) {
+        setRedirect(true)
+      } else {
+        sessionStorage.removeItem('menu')
+      }
+    })
+    .catch(error => {
+      if (!error.status) {
+        Swal.fire({
+          type: 'warning',
+          title: '',
+          text: 'Maaf Session Anda Sudah berakhir...\n Silahkan Login Kembali...',
+          timer: 1000,
+          footer: '@asastarealty'
+        }).then(result => {
+          onConfirmAlert()
+        })
+      }
+    })
+
   // --------------------------------------- A L E R T
   const hideAlert = () => {
     setAlert(null)
