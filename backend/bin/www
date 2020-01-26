@@ -7,12 +7,17 @@
 const app = require('../app')
 const debug = require('debug')('teknotama-backend:server')
 const http = require('http')
+// process.env.NODE_ENV = 'development_other'
+
+// config variables
+const config = require('../config/config.js')
+// console.log(`${global.gConfig.app_name} listening on port ${global.gConfig.node_port}`)
 
 /**
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '7979')
+const port = normalizePort(`${global.gConfig.node_port}` || '7979')
 app.set('port', port)
 
 /**
