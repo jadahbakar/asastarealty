@@ -17,7 +17,8 @@ const config = require('../config/config.js')
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(`${global.gConfig.node_port}` || '7979')
+// const port = normalizePort(`${global.gConfig.node_port}` || '7979')
+const port = normalizePort(`${config.node_port}` || '7979')
 app.set('port', port)
 
 /**
