@@ -8,6 +8,8 @@ const fs = require('fs')
 const path = require('path')
 var appRoot = require('app-root-path')
 
+const config = require('@root/config/config')
+
 // const locationKeySecret = path.join(appRoot.path, '/key/ecdsa_private_key.pem')
 const locationkeyPublic = path.join(appRoot.path, '/key/ecdsa_public_key.pem')
 
@@ -53,7 +55,7 @@ const postLogin = asyncro.asyncHandler(async (request, response, next) => {
 
   // ---Opsi JWT-Token
   const verifyOptions = {
-    expiresIn: process.env.MAX_AGE_LOGIN,
+    expiresIn: config.max_age_login,
     algorithm: 'ES256'
   }
   // ---Verify JWT
@@ -79,7 +81,7 @@ const postLogin = asyncro.asyncHandler(async (request, response, next) => {
       if (responseAuth.data !== null) {
         // pengecekan payload --> teknotama_ dan IP sumber harus sama
         if (
-          responseAuth.data.initial === process.env.INIT_STARTUP &&
+          responseAuth.data.initial === config.init_startup &&
           responseAuth.data.reqIp === request.connection.remoteAddress
         ) {
           clientRedis.del(token)
@@ -118,7 +120,7 @@ const postLogin = asyncro.asyncHandler(async (request, response, next) => {
             // } else {
             // ---Prepare payload for token
             const payload = {
-              initial: process.env.INIT_STARTUP,
+              initial: config.init_startup,
               reqIp: request.connection.remoteAddress, // ---ambil ip Address client
               granted: 'OK',
               userId,
@@ -130,7 +132,7 @@ const postLogin = asyncro.asyncHandler(async (request, response, next) => {
             response.status(200).json({
               token: auth.createJWToken({
                 sessionData: payload,
-                maxAge: process.env.MAX_AGE_TOKEN
+                maxAge: config.max_age_token
               }),
               getUser
               // getMenu

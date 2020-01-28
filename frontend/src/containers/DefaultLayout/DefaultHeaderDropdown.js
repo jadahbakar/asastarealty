@@ -46,33 +46,27 @@ class DefaultHeaderDropdown extends Component {
             <strong>
 You have
               {itemsCount}
-              {' '}
 notifications
             </strong>
           </DropdownItem>
           <DropdownItem>
             <i className='icon-user-follow text-success' />
-            {' '}
 New user registered
           </DropdownItem>
           <DropdownItem>
             <i className='icon-user-unfollow text-danger' />
-            {' '}
 User deleted
           </DropdownItem>
           <DropdownItem>
             <i className='icon-chart text-info' />
-            {' '}
 Sales report is ready
           </DropdownItem>
           <DropdownItem>
             <i className='icon-basket-loaded text-primary' />
-            {' '}
 New client
           </DropdownItem>
           <DropdownItem>
             <i className='icon-speedometer text-warning' />
-            {' '}
 Server overloaded
           </DropdownItem>
           <DropdownItem header tag='div' className='text-center'>
@@ -122,25 +116,21 @@ Server overloaded
           </DropdownItem>
           <DropdownItem>
             <i className='fa fa-bell-o' />
-            {' '}
 Updates
             <Badge color='info'>42</Badge>
           </DropdownItem>
           <DropdownItem>
             <i className='fa fa-envelope-o' />
-            {' '}
 Messages
             <Badge color='success'>42</Badge>
           </DropdownItem>
           <DropdownItem>
             <i className='fa fa-tasks' />
-            {' '}
 Tasks
             <Badge color='danger'>42</Badge>
           </DropdownItem>
           <DropdownItem>
             <i className='fa fa-comments' />
-            {' '}
 Comments
             <Badge color='warning'>42</Badge>
           </DropdownItem>
@@ -149,35 +139,29 @@ Comments
           </DropdownItem>
           <DropdownItem>
             <i className='fa fa-user' />
-            {' '}
 Profile
           </DropdownItem>
           <DropdownItem>
             <i className='fa fa-wrench' />
-            {' '}
 Settings
           </DropdownItem>
           <DropdownItem>
             <i className='fa fa-usd' />
-            {' '}
 Payments
             <Badge color='secondary'>42</Badge>
           </DropdownItem>
           <DropdownItem>
             <i className='fa fa-file' />
-            {' '}
 Projects
             <Badge color='primary'>42</Badge>
           </DropdownItem>
           <DropdownItem divider />
           <DropdownItem>
             <i className='fa fa-shield' />
-            {' '}
 Lock Account
           </DropdownItem>
           <DropdownItem onClick={this.props.onLogout}>
             <i className='fa fa-lock' />
-            {' '}
 Logout
           </DropdownItem>
           {/* <DropdownItem><i className="fa fa-lock"></i> Logout</DropdownItem> */}
@@ -201,14 +185,12 @@ Logout
             <strong>
 You have
               {itemsCount}
-              {' '}
 pending tasks
             </strong>
           </DropdownItem>
           <DropdownItem>
             <div className='small mb-1'>
               Upgrade NPM &amp; Bower
-              {' '}
               <span className='float-right'>
                 <strong>0%</strong>
               </span>
@@ -218,7 +200,6 @@ pending tasks
           <DropdownItem>
             <div className='small mb-1'>
               ReactJS Version
-              {' '}
               <span className='float-right'>
                 <strong>25%</strong>
               </span>
@@ -228,7 +209,6 @@ pending tasks
           <DropdownItem>
             <div className='small mb-1'>
               VueJS Version
-              {' '}
               <span className='float-right'>
                 <strong>50%</strong>
               </span>
@@ -238,7 +218,6 @@ pending tasks
           <DropdownItem>
             <div className='small mb-1'>
               Add new layouts
-              {' '}
               <span className='float-right'>
                 <strong>75%</strong>
               </span>
@@ -248,7 +227,6 @@ pending tasks
           <DropdownItem>
             <div className='small mb-1'>
               Angular 2 Cli Version
-              {' '}
               <span className='float-right'>
                 <strong>100%</strong>
               </span>
@@ -278,7 +256,6 @@ pending tasks
             <strong>
 You have
               {itemsCount}
-              {' '}
 messages
             </strong>
           </DropdownItem>
@@ -296,7 +273,6 @@ messages
               </div>
               <div className='text-truncate font-weight-bold'>
                 <span className='fa fa-exclamation text-danger' />
-                {' '}
 Important message
               </div>
               <div className='small text-muted text-truncate'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</div>

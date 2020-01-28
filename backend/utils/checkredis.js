@@ -1,8 +1,10 @@
-require('dotenv').config()
+// require('dotenv').config()
+
 const redis = require('redis')
+const config = require('../config/config')
 const client = redis.createClient(
-  process.env.REDIS_PORT,
-  process.env.REDIS_HOST
+  config.redis_port,
+  config.redis_host
 )
 
 module.exports = function (msg) {
@@ -11,7 +13,7 @@ module.exports = function (msg) {
       console.log(error)
       throw error
     }
-    console.log('GET result ->' + result)
+    // console.log('GET result ->' + result)
     // result
     process.exit(1)
   })

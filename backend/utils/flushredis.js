@@ -9,7 +9,7 @@ client.on('error', function (err) {
 
 // var redis = require("redis"),
 //   client = redis.createClient({
-//     host: process.env.REDIS_HOST || "127.0.0.1"
+// host:  "127.0.0.1"
 //   });
 
 // ------ Clear all data

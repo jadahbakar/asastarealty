@@ -2,6 +2,8 @@ var auth = require('../authentication')
 var asyncro = require('../asyncro')
 // const CryptoJS = require('crypto-js')
 
+const config = require('@root/config/config')
+
 // config variables
 // const config = require('../config/config.js')
 
@@ -39,12 +41,12 @@ const getLogin = asyncro.asyncHandler(async (request, response, next) => {
   // console.log(`${global.gConfig.init_startup}`)
 
   const payload = {
-    initial: process.env.INIT_STARTUP,
+    initial: config.init_startup,
     reqIp: request.connection.remoteAddress // ---ambil ip Address client
   }
   const token = auth.createJWToken({
     sessionData: payload,
-    maxAge: process.env.MAX_AGE_LOGIN
+    maxAge: config.max_age_login
   })
   createRedis(token)
   response.json({ token })

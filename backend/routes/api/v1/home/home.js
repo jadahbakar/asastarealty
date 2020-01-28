@@ -7,6 +7,8 @@ const jwt = require('jsonwebtoken')
 const fs = require('fs')
 const path = require('path')
 var appRoot = require('app-root-path')
+// config variables
+const config = require('@root/config/config.js')
 
 // const locationKeySecret = path.join(appRoot.path, '/key/ecdsa_private_key.pem')
 const locationkeyPublic = path.join(appRoot.path, '/key/ecdsa_public_key.pem')
@@ -46,7 +48,7 @@ const getUserMenu = asyncro.asyncHandler(async (request, response, next) => {
 
   // ---Opsi JWT-Token
   const verifyOptions = {
-    expiresIn: process.env.MAX_AGE_TOKEN,
+    expiresIn: config.max_age_token,
     algorithm: 'ES256'
   }
   // ---Verify JWT

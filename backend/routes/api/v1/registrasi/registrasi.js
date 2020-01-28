@@ -10,6 +10,9 @@ const path = require('path')
 var appRoot = require('app-root-path')
 const ext = require('../extracttoken')
 
+// config variables
+const config = require('@root/config/config.js')
+
 // const locationKeySecret = path.join(appRoot.path, '/key/ecdsa_private_key.pem')
 const locationkeyPublic = path.join(appRoot.path, '/key/ecdsa_public_key.pem')
 
@@ -49,12 +52,12 @@ const getRegistrasi = asyncro.asyncHandler(async (request, response, next) => {
   // console.log('get')
   const payload = {
     // initial: 'teknotama_',
-    initial: process.env.INIT_STARTUP,
+    initial: config.init_startup,
     reqIp: request.connection.remoteAddress // ---ambil ip Address client
   }
   const token = auth.createJWToken({
     sessionData: payload,
-    maxAge: process.env.MAX_AGE_REGISTRATION
+    maxAge: config.max_age_registration
   })
   createRedis(token)
   response.json({ token })
@@ -78,7 +81,7 @@ const postRegistrasi = asyncro.asyncHandler(async (request, response, next) => {
 
   // ---Opsi JWT-Token
   const verifyOptions = {
-    expiresIn: process.env.MAX_AGE,
+    expiresIn: config.max_age,
     algorithm: 'ES256'
   }
   // ---Verify JWT
@@ -105,7 +108,7 @@ const postRegistrasi = asyncro.asyncHandler(async (request, response, next) => {
       if (responseAuth.data !== null) {
         // pengecekan payload --> teknotama_ dan IP sumber harus sama
         if (
-          responseAuth.data.initial === process.env.INIT_STARTUP &&
+          responseAuth.data.initial === config.init_startup &&
           responseAuth.data.reqIp === request.connection.remoteAddress
         ) {
           clientRedis.del(token)
