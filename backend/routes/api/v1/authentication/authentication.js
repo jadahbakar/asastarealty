@@ -9,6 +9,8 @@ const locationkeyPublic = path.join(appRoot.path, '/key/ecdsa_public_key.pem')
 var keySecret = fs.readFileSync(locationKeySecret, 'utf8')
 var keyPublic = fs.readFileSync(locationkeyPublic, 'utf8')
 
+var db = require('@db/db')
+
 function createJWToken (details) {
   if (typeof details !== 'object') {
     details = {}
@@ -53,7 +55,16 @@ function verifyJWTToken (token) {
   })
 }
 
+async function actionToken (action, token) {
+  console.log('TCL: actionToken -> token', token)
+  console.log('TCL: actionToken -> action', action)
+
+  const data = db.one('SELECT log.token_action($(action), $(token))', { action, token })
+  return data
+}
+
 module.exports = {
   verifyJWTToken: verifyJWTToken,
-  createJWToken: createJWToken
+  createJWToken: createJWToken,
+  actionToken
 }

@@ -85,7 +85,7 @@ const postLogin = asyncro.asyncHandler(async (request, response, next) => {
           responseAuth.data.reqIp === request.connection.remoteAddress
         ) {
           clientRedis.del(token)
-          console.log('TCL: token', token)
+          // console.log('TCL: token', token)
           pesan = 'TokenOK'
           var decrypted = decrypt(userpass, token)
           var stringPass = decrypted.toString(CryptoJS.enc.Utf8)

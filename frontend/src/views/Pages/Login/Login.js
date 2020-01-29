@@ -117,7 +117,7 @@ const LeftCard = () => {
   const fetchData = async () => {
     const result = await axios(`${backEndLogin}`)
     setTokenLogin(result.data.token)
-    console.log(result.data.token)
+    // console.log(result.data.token)
   }
 
   useEffect(() => {

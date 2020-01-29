@@ -29,6 +29,7 @@ import {
 import routes from '../../routes'
 
 const backEnd = `${API_ROOT}/home`
+const backLogout = `${API_ROOT}/logout`
 const DefaultAside = React.lazy(() => import('./DefaultAside'))
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'))
 const DefaultHeader = React.lazy(() => import('./DefaultHeader'))
@@ -99,8 +100,11 @@ const DefaultLayout = props => {
   // --------------------------------------- SignOut
   const signOut = e => {
     e.preventDefault()
-    sessionStorage.clear()
-    props.history.push('/login')
+    axios.defaults.headers.common.Authorization = sessionStorage.getItem('tkn')
+    axios.post(`${backLogout}`).then(response => { console.log('TCL: response', response.data) }).catch(error => { if (error) { console.log(error) } })
+
+    // sessionStorage.clear()
+    // props.history.push('/login')
   }
 
   // --------------------------------------- DidMount

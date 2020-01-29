@@ -2,6 +2,8 @@ var router = require('express').Router()
 
 // router.use('/', require('./home'));
 router.use('/login', require('./login'))
+router.use('/logout', require('./logout'))
+
 router.use('/testing', require('./testing'))
 router.use('/home', require('./home'))
 router.use('/master', require('./master'))
