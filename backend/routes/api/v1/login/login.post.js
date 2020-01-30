@@ -1,12 +1,12 @@
-var db = require('@db/db')
-var auth = require('../authentication')
-var asyncro = require('../asyncro')
-// var router = require('express').Router()
+const db = require('@db/db')
+const auth = require('../authentication')
+const asyncro = require('../asyncro')
+// const router = require('express').Router()
 const CryptoJS = require('crypto-js')
 const jwt = require('jsonwebtoken')
 const fs = require('fs')
 const path = require('path')
-var appRoot = require('app-root-path')
+const appRoot = require('app-root-path')
 
 // const locationKeySecret = path.join(appRoot.path, '/key/ecdsa_private_key.pem')
 const locationkeyPublic = path.join(appRoot.path, '/key/ecdsa_public_key.pem')
@@ -15,9 +15,9 @@ const locationkeyPublic = path.join(appRoot.path, '/key/ecdsa_public_key.pem')
 const config = require('@root/config/config.js')
 
 // var keySecret = fs.readFileSync(locationKeySecret, 'utf8')
-var keyPublic = fs.readFileSync(locationkeyPublic, 'utf8')
-var redis = require('redis')
-var clientRedis = redis.createClient()
+const keyPublic = fs.readFileSync(locationkeyPublic, 'utf8')
+const redis = require('redis')
+const clientRedis = redis.createClient()
 const { promisify } = require('util')
 const getAsync = promisify(clientRedis.get).bind(clientRedis)
 
@@ -129,12 +129,17 @@ const postLogin = asyncro.asyncHandler(async (request, response, next) => {
               userEmail,
               userRole
             }
+            // ---Penambahan proses authentikasi token
+            const createToken = auth.createJWToken({ sessionData: payload, maxAge: config.max_age_token })
+            const action = 'insert'
+            await auth.actionToken(action, createToken)
             // ---Create token & response to user
             response.status(200).json({
-              token: auth.createJWToken({
-                sessionData: payload,
-                maxAge: config.max_age_token
-              }),
+              // token: auth.createJWToken({
+              //   sessionData: payload,
+              //   maxAge: config.max_age_token
+              // }),
+              token: createToken,
               getUser
               // getMenu
             })

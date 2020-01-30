@@ -9,18 +9,37 @@ const path = require('path')
 var appRoot = require('app-root-path')
 // config variables
 const config = require('@root/config/config.js')
-
+const auth = require('../authentication')
 // const locationKeySecret = path.join(appRoot.path, '/key/ecdsa_private_key.pem')
 const locationkeyPublic = path.join(appRoot.path, '/key/ecdsa_public_key.pem')
 
 // var keySecret = fs.readFileSync(locationKeySecret, 'utf8')
 var keyPublic = fs.readFileSync(locationkeyPublic, 'utf8')
 
-const getHome = asyncro.asyncHandler(async (request, response, next) => {
-  response.status(200).json({
-    message: 'authorized'
-  })
-})
+// const getHomeOld = asyncro.asyncHandler(async (request, response, next) => {
+//   response.status(200).json({
+//     message: 'authorized'
+//   })
+// })
+
+const getHome = async (request, response, next) => {
+  // ---ambil nilai token dari reactjs / client
+  const token = request.body.token || request.query.token || request.headers.authorization // mengambil token di antara request
+  const action = 'check'
+  const result = await auth.actionToken(action, token)
+
+  if (result.token_action === 'ok') {
+    console.log('TCL: getHome -> result', result)
+    response.status(200).json({
+      message: result
+    })
+  } else {
+    // unauthorized
+    response.status(401).json({
+      message: result
+    })
+  }
+}
 
 // const getMenu = asyncro.asyncHandler(async (request, response, next) => {
 //   const userRole = request.params.userrole

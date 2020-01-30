@@ -59,22 +59,24 @@ const DefaultLayout = props => {
     .get(`${backEnd}`)
     .then(response => {
       if (response.status !== 200) {
-        setRedirect(true)
+        // setRedirect(true)
+        onConfirmAlert()
       } else {
         sessionStorage.removeItem('menu')
       }
     })
     .catch(error => {
       if (!error.status) {
-        Swal.fire({
-          type: 'warning',
-          title: '',
-          text: 'Maaf Session Anda Sudah berakhir...\n Silahkan Login Kembali...',
-          timer: 1000,
-          footer: '@asastarealty'
-        }).then(result => {
-          onConfirmAlert()
-        })
+        onConfirmAlert()
+        // Swal.fire({
+        //   type: 'warning',
+        //   title: '',
+        //   text: 'Maaf Session Anda Sudah berakhir...\n Silahkan Login Kembali...',
+        //   timer: 1000,
+        //   footer: '@asastarealty'
+        // }).then(result => {
+        //   onConfirmAlert()
+        // })
       }
     })
 
@@ -84,18 +86,10 @@ const DefaultLayout = props => {
   }
 
   const onConfirmAlert = () => {
-    hideAlert()
+    // hideAlert()
     sessionStorage.clear()
     props.history.push('/login')
   }
-
-  // const showAlert = (title, message) => {
-  //   setAlert(
-  //     <SweetAlert warning title={title} onConfirm={onConfirmAlert}>
-  //       {message}
-  //     </SweetAlert>
-  //   );
-  // };
 
   // --------------------------------------- SignOut
   const signOut = e => {
@@ -103,8 +97,8 @@ const DefaultLayout = props => {
     axios.defaults.headers.common.Authorization = sessionStorage.getItem('tkn')
     axios.post(`${backLogout}`).then(response => { console.log('TCL: response', response.data) }).catch(error => { if (error) { console.log(error) } })
 
-    // sessionStorage.clear()
-    // props.history.push('/login')
+    sessionStorage.clear()
+    props.history.push('/login')
   }
 
   // --------------------------------------- DidMount
@@ -114,22 +108,24 @@ const DefaultLayout = props => {
       .get(`${backEnd}`)
       .then(response => {
         if (response.status !== 200) {
-          setRedirect(true)
+          // setRedirect(true)
+          onConfirmAlert()
         } else {
           sessionStorage.removeItem('menu')
         }
       })
       .catch(error => {
         if (!error.status) {
-          Swal.fire({
-            type: 'warning',
-            title: '',
-            text: 'Maaf Session Anda Sudah berakhir...\n Silahkan Login Kembali...',
-            timer: 1000,
-            footer: '@asastarealty'
-          }).then(result => {
-            onConfirmAlert()
-          })
+          // Swal.fire({
+          //   type: 'warning',
+          //   title: '',
+          //   text: 'Maaf Session Anda Sudah berakhir...\n Silahkan Login Kembali...',
+          //   timer: 1000,
+          //   footer: '@asastarealty'
+          // }).then(result => {
+          //   onConfirmAlert()
+          // })
+          onConfirmAlert()
         }
       })
   }, [])

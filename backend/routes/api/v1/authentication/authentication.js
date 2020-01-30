@@ -56,9 +56,6 @@ function verifyJWTToken (token) {
 }
 
 async function actionToken (action, token) {
-  console.log('TCL: actionToken -> token', token)
-  console.log('TCL: actionToken -> action', action)
-
   const data = db.one('SELECT log.token_action($(action), $(token))', { action, token })
   return data
 }
