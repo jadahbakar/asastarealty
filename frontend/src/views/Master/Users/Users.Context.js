@@ -1,28 +1,42 @@
+/* global sessionStorage */
 import React, { useState, createContext } from 'react'
 import axios from 'axios'
 import { API_ROOT } from 'api'
 
-export const RegistrasiContext = createContext()
+export const UsersContext = createContext()
 
-export const RegistrasiProvider = props => {
+export const UsersProvider = props => {
   const [modalOpen, setModalOpen] = useState(false)
   const [regID, setRegID] = useState('')
   const [referalID, setReferalID] = useState('')
-  const titleMenu = ' Registrasi'
-  const backEndReg = `${API_ROOT}/registrasi`
+  const titleMenu = ' User'
+  const backEndUsers = `${API_ROOT}/users`
   const [fetchTableData, setFetchTableData] = useState([])
 
-  const reloadTableData = () => {
-    axios.get(`${backEndReg}/all`).then(response => {
-      console.log('TCL: reloadTableData -> response.data', response.data)
-      setFetchTableData(response.data)
-    })
-  }
+  const [loading, setLoading] = useState(false)
 
-  // const fetchData = async () => {
-  //   const result = await axios(`${backEndLogin}`);
-  //   setFetchTableData(result.data.token);
-  // };
+  // const reloadTableData = () => {
+  //   axios.get(`${backEndUsers}`).then(response => {
+  //     setFetchTableData(response.data.allUser)
+  //   })
+  // }
+
+  const reloadTableData = () => {
+    setLoading(true)
+    axios.defaults.headers.common.Authorization = sessionStorage.getItem('tkn')
+    axios
+      .get(`${backEndUsers}`)
+      .then(response => {
+        setFetchTableData(response.data.allUser)
+        setLoading(false)
+      })
+      .catch(error => {
+        setLoading(false)
+        if (error) {
+          console.log('TCL: reloadTableData -> error', error)
+        }
+      })
+  }
 
   const toggleOpen = () => {
     setModalOpen(modalOpen === false)
@@ -30,7 +44,7 @@ export const RegistrasiProvider = props => {
 
   const onRowClick = (state, rowInfo) => ({
     onClick: () => {
-      setRegID(rowInfo.original.reg_id)
+      setRegID(rowInfo.original.user_id)
     }
   })
 
@@ -40,10 +54,10 @@ export const RegistrasiProvider = props => {
 
   const content = (
     <>
-      <RegistrasiContext.Provider
+      <UsersContext.Provider
         value={{
           titleMenu,
-          backEndReg,
+          backEndUsers,
           modalOpen,
           toggleOpen,
           regID,
@@ -52,11 +66,12 @@ export const RegistrasiProvider = props => {
           onChangeReferal,
           fetchTableData,
           setFetchTableData,
-          reloadTableData
+          reloadTableData,
+          loading
         }}
       >
         {props.children}
-      </RegistrasiContext.Provider>
+      </UsersContext.Provider>
     </>
   )
   return content

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from 'reactstrap'
+import { UsersContext } from './Users.Context'
 
 const styles = {
   colStyle: {
@@ -14,9 +15,13 @@ const columns = [
     accessor: 'user_id',
     Cell: row => (
       <div style={{ textAlign: 'center' }}>
-        <Button block color='ghost-info'>
-          {row.value}
-        </Button>
+        <UsersContext.Consumer>
+          {context => (
+            <Button block color='ghost-info'>
+              {row.value}
+            </Button>
+          )}
+        </UsersContext.Consumer>
       </div>
     )
   },
@@ -29,6 +34,7 @@ const columns = [
   {
     Header: 'Status',
     accessor: 'user_sts',
+    filterable: false,
     width: 75,
     Cell: row => (
       <div style={{ textAlign: 'center', marginTop: '0.5em' }}>
@@ -47,11 +53,13 @@ const columns = [
   {
     Header: 'Email',
     accessor: 'user_email',
+    filterable: false,
     Cell: row => <div style={styles.colStyle}>{row.value}</div>
   },
   {
     Header: 'Role',
     accessor: 'roles_name',
+    filterable: false,
     Cell: row => <div style={styles.colStyle}>{row.value}</div>
   }
 ]
