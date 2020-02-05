@@ -103,7 +103,7 @@ const getUserMenu = asyncro.asyncHandler(async (request, response, next) => {
   }
 })
 
-router.get('/', middleware.verifyJWTMW)
+router.get('*', middleware.verifyJWTMW)
 // router.all("*", middleware.verifyJWT_MW);
 // router.post("*", middleware.verifyJWT_MW);
 

@@ -4,7 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 import { Container } from 'reactstrap'
 import axios from 'axios'
 import { API_ROOT } from 'api'
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 
 // import { useHttpA } from 'httpA';
 
@@ -81,9 +81,9 @@ const DefaultLayout = props => {
     })
 
   // --------------------------------------- A L E R T
-  const hideAlert = () => {
-    setAlert(null)
-  }
+  // const hideAlert = () => {
+  //   setAlert(null)
+  // }
 
   const onConfirmAlert = () => {
     // hideAlert()
