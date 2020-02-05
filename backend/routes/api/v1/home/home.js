@@ -29,7 +29,7 @@ const getHome = async (request, response, next) => {
   const result = await auth.actionToken(action, token)
 
   if (result.token_action === 'ok') {
-    console.log('TCL: getHome -> result', result)
+    // console.log('TCL: getHome -> result', result)
     response.status(200).json({
       message: result
     })
