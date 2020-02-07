@@ -30,7 +30,7 @@ const InputanPassword = props => {
           />
           <InputGroupAddon addonType='append'>
             <Button outline color='info' onClick={toggleShow}>
-              <i className='fa fa-eye' />
+              <i className='fa fa-eye' style={{ position: 'absolute', left: '1em', top: '0.7em' }} />
             </Button>
           </InputGroupAddon>
         </InputGroup>
