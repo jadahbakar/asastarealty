@@ -29,7 +29,7 @@ const InputanPassword = props => {
             innerRef={innerRef}
           />
           <InputGroupAddon addonType='append'>
-            <Button block outline color='info' onClick={toggleShow}>
+            <Button outline color='info' onClick={toggleShow}>
               <i className='fa fa-eye' />
             </Button>
           </InputGroupAddon>

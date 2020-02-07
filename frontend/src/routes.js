@@ -58,7 +58,7 @@ const Widgets = React.lazy(() => import('./views/Widgets/Widgets'))
 const User = React.lazy(() => import('./views/Users/User'))
 
 const Users = React.lazy(() => import('./views/Master/Users'))
-const UsersDetail = React.lazy(() => import('./views/Master/Users/Users.Detail'))
+const UserDetail = React.lazy(() => import('./views/Master/Users/Users.Detail'))
 
 const Registrasi = React.lazy(() => import('./views/Master/Registrasi'))
 
@@ -165,7 +165,7 @@ const routes = [
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
 
   { path: '/master/users', exact: true, name: 'Users', component: Users },
-  { path: '/master/users/detail', exact: true, name: 'UsersDetail', component: UsersDetail },
+  { path: '/master/users/detail', exact: true, name: 'UserDetail', component: UserDetail },
   {
     path: '/master/registrasi',
     exact: true,

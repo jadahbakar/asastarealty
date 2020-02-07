@@ -63,9 +63,9 @@
     "reactstrap": "^8.2.0",
     "simple-line-icons": "^2.4.1",
     "spinkit": "^2.0.0",
-    "styled-components": "^4.4.0",
+    "styled-components": "^5.0.1",
     "sweetalert2": "^9.5.4",
-    "sweetalert2-react-content": "^2.0.2"
+    "sweetalert2-react-content": "^3.0.0"
   },
   "devDependencies": {
     "mutationobserver-shim": "^0.3.3",

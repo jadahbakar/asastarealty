@@ -322,498 +322,493 @@ const Register = props => {
   const content = (
     <>
       <Container fluid>
-        <Row className='justify-content-center'>
-          <Col md='10' lg='10' xl='6' style={{ flexBasis: 'auto' }}>
-            <Card className='mx-4'>
-              <CardHeader>
-                <h1>Registrasi</h1>
-                <p className='text-muted'>Membuat Akun...</p>
-              </CardHeader>
 
-              <CardBody className='p-4'>
-                <Form onSubmit={handleSubmit(onSubmit)}>
-                  <Inputan
-                    icon='fa fa-lock'
-                    name='nama'
-                    type='text'
-                    value={nama}
-                    change={e => setNama(e.target.value)}
-                    placeholder='Nama'
-                    innerRef={register({ required: true, minLength: 3 })}
-                    error={<ErrorMessage error={errors.nama} />}
-                  />
-                  <Label htmlFor='prependedInput' className='register-label-header'>
+        <Card>
+
+          <CardBody className='p-4'>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+              <Inputan
+                icon='fa fa-lock'
+                name='nama'
+                type='text'
+                value={nama}
+                change={e => setNama(e.target.value)}
+                placeholder='Nama'
+                innerRef={register({ required: true, minLength: 3 })}
+                error={<ErrorMessage error={errors.nama} />}
+              />
+              <Label htmlFor='prependedInput' className='register-label-header'>
                     Data Pribadi
-                  </Label>
-                  <ColoredLine color='#ff9375' />
-                  <Row>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <Inputan
-                        icon='fa fa-home'
-                        name='tempatLahir'
-                        type='text'
-                        value={tempatLahir}
-                        change={e => setTempatLahir(e.target.value)}
-                        placeholder='Tempat Lahir'
-                        innerRef={register({ required: true, minLength: 3 })}
-                        error={<ErrorMessage error={errors.tempatLahir} />}
-                      />
-                    </Col>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <Inputan
-                        icon='fa fa-calendar'
-                        name='tanggalLahir'
-                        type='date'
-                        value={tanggalLahir}
-                        change={e => setTanggalLahir(e.target.value)}
-                        placeholder='Tanggal Lahir'
-                        innerRef={register({ required: true })}
-                        error={<ErrorMessage error={errors.tanggalLahir} />}
-                      />
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <Inputan
-                        icon='fa fa-id-card-o'
-                        name='nik'
-                        type='text'
-                        value={nik}
-                        change={e => setNIK(filterNonDigits(e.target.value))}
-                        placeholder='NIK'
-                        innerRef={register({
-                          required: true,
-                          minLength: 16,
-                          maxLength: 16
-                        })}
-                        error={<ErrorMessage error={errors.nik} />}
-                      />
-                    </Col>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <Inputan
-                        icon='fa fa-id-card-o'
-                        name='kk'
-                        type='text'
-                        value={kk}
-                        change={e => setKK(filterNonDigits(e.target.value))}
-                        placeholder='No KK'
-                        innerRef={register({ required: true })}
-                        error={<ErrorMessage error={errors.kk} />}
-                      />
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <Inputan
-                        icon='icon-phone'
-                        name='hp'
-                        type='text'
-                        value={hp}
-                        change={e => setHP(filterNonDigits(e.target.value))}
-                        placeholder='No HP'
-                        innerRef={register({ required: true })}
-                        error={<ErrorMessage error={errors.hp} />}
-                      />
-                    </Col>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <Inputan
-                        icon='icon-layers'
-                        name='pekerjaan'
-                        type='text'
-                        value={pekerjaan}
-                        change={e => setPekerjaan(e.target.value)}
-                        placeholder='Pekerjaan'
-                        feedback='Pekerjaan Harus Di Isi'
-                      />
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <InputanSelect
-                        icon='fa fa-hand-pointer-o'
-                        name='agama'
-                        value={agama}
-                        change={e => setAgama(e.target.value)}
-                        innerRef={register({ required: true })}
-                        error={<ErrorMessage error={errors.agama} />}
-                      >
-                        <option key='' value=''>
-                          Pilih Agama...
-                        </option>
-                        {agamaList.map(detail => (
-                          <option key={detail.agama_id} value={detail.agama_id}>
-                            {detail.agama_nama}
-                          </option>
-                        ))}
-                      </InputanSelect>
-                    </Col>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <InputanSelect
-                        icon='icon-tag'
-                        name='statusNikah'
-                        value={statusNikah}
-                        change={e => setStatusNikah(e.target.value)}
-                        placeholder='Pilih Agama'
-                        innerRef={register({ required: true })}
-                        error={<ErrorMessage error={errors.statusNikah} />}
-                      >
-                        <option key='' value=''>
-                          Pilih Status...
-                        </option>
-                        {statusNikahList.map(detail => (
-                          <option key={detail.marital_id} value={detail.marital_id}>
-                            {detail.marital_nama}
-                          </option>
-                        ))}
-                      </InputanSelect>
-                    </Col>
-                  </Row>
-
-                  {/* ----------------------------------- T E M P A T   T I N G G A L ----------------------------------- */}
-
-                  <Label htmlFor='prependedInput' className='register-label-header'>
-                    Tempat Tinggal
-                  </Label>
-                  <ColoredLine color='#ff9375' />
-
+              </Label>
+              <ColoredLine color='#ff9375' />
+              <Row>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
                   <Inputan
-                    icon='fa fa-map-o'
-                    name='alamat'
+                    icon='fa fa-home'
+                    name='tempatLahir'
                     type='text'
-                    value={alamat}
-                    change={e => setAlamat(e.target.value)}
-                    placeholder='Alamat'
-                    innerRef={register({ required: true, minLength: 10 })}
-                    error={<ErrorMessage error={errors.alamat} />}
+                    value={tempatLahir}
+                    change={e => setTempatLahir(e.target.value)}
+                    placeholder='Tempat Lahir'
+                    innerRef={register({ required: true, minLength: 3 })}
+                    error={<ErrorMessage error={errors.tempatLahir} />}
                   />
-                  <Row>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <InputanSelect
-                        icon='icon-tag'
-                        name='propinsi'
-                        value={propinsi}
-                        change={propinsiSelectHandler}
-                        placeholder='Propinsi'
-                        innerRef={register({ required: true })}
-                        error={<ErrorMessage error={errors.propinsi} />}
-                      >
-                        <option key='' value=''>
-                          Pilih Propinsi...
-                        </option>
-                        {propinsiList.map(detail => (
-                          <option key={detail.propinsi_id} value={detail.propinsi_id}>
-                            {detail.propinsi_nama}
-                          </option>
-                        ))}
-                      </InputanSelect>
-                    </Col>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <InputanSelect
-                        icon='icon-tag'
-                        name='kota'
-                        value={kota}
-                        change={kotaSelectHandler}
-                        placeholder='Kota'
-                        innerRef={register({ required: true })}
-                        error={<ErrorMessage error={errors.kota} />}
-                      >
-                        <option key='' value=''>
-                          Pilih Kota...
-                        </option>
-                        {kotaList.map(detail => (
-                          <option key={detail.kota_id} value={detail.kota_id}>
-                            {detail.kota_nama}
-                          </option>
-                        ))}
-                      </InputanSelect>
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <InputanSelect
-                        icon='fa fa-map-pin'
-                        name='kecamatan'
-                        value={kecamatan}
-                        change={kecamatanSelectHandler}
-                        placeholder='Kecamatan'
-                        innerRef={register({ required: true })}
-                        error={<ErrorMessage error={errors.kecamatan} />}
-                      >
-                        <option key='' value=''>
-                          Pilih Kecamatan...
-                        </option>
-                        {kecamatanList.map(detail => (
-                          <option key={detail.kecamatan_id} value={detail.kecamatan_id}>
-                            {detail.kecamatan_nama}
-                          </option>
-                        ))}
-                      </InputanSelect>
-                    </Col>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <InputanSelect
-                        icon='fa fa-map-pin'
-                        name='kelurahan'
-                        value={kelurahan}
-                        change={e => setKelurahan(e.target.value)}
-                        placeholder='Kelurahan'
-                        innerRef={register({ required: true })}
-                        error={<ErrorMessage error={errors.kelurahan} />}
-                      >
-                        <option key='' value=''>
-                          Pilih Kelurahan...
-                        </option>
-                        {KelurahanList.map(detail => (
-                          <option key={detail.kelurahan_id} value={detail.kelurahan_id}>
-                            {detail.kelurahan_nama}
-                          </option>
-                        ))}
-                      </InputanSelect>
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <Row>
-                        <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                          <Inputan
-                            icon='icon-directions'
-                            name='rt'
-                            type='text'
-                            value={rt}
-                            change={e => setRT(filterNonDigits(e.target.value))}
-                            placeholder='RT'
-                            innerRef={register({ required: true })}
-                            error={<ErrorMessage error={errors.rt} />}
-                          />
-                        </Col>
-                        <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                          <Inputan
-                            icon='icon-directions'
-                            name='rw'
-                            type='text'
-                            value={rw}
-                            change={e => setRW(filterNonDigits(e.target.value))}
-                            placeholder='RW'
-                            innerRef={register({ required: true })}
-                            error={<ErrorMessage error={errors.rw} />}
-                          />
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <Inputan
-                        icon='icon-direction'
-                        name='kodePOS'
-                        type='text'
-                        value={kodePOS}
-                        change={e => setKodePOS(filterNonDigits(e.target.value))}
-                        placeholder='Kode POS'
-                        innerRef={register({
-                          required: true,
-                          minLength: 5,
-                          maxLength: 5
-                        })}
-                        error={<ErrorMessage error={errors.kodePOS} />}
-                      />
-                    </Col>
-                  </Row>
-
-                  {/* ----------------------------------- K T P ----------------------------------- */}
-
-                  <Row>
-                    <Col>
-                      <Label htmlFor='prependedInput' className='register-label-header'>
-                        Alamat Sesuai KTP
-                      </Label>
-                    </Col>
-                    <Col>
-                      <div>
-                        <div className='checkbox checkbox-primary checkbox-align-right'>
-                          <Input name='checkSama' type='checkbox' value='option1' onChange={handleChangeCheck} />
-                          <Label for='checkbox2'>Sama Seperti Diatas</Label>
-                        </div>
-                      </div>
-                    </Col>
-                  </Row>
-                  <ColoredLine color='#ff9375' />
-
+                </Col>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
                   <Inputan
-                    icon='fa fa-map-o'
-                    name='alamatKTP'
-                    type='text'
-                    value={alamatKTP}
-                    change={e => setAlamatKTP(e.target.value)}
-                    placeholder='Alamat'
-                    innerRef={register({ required: true, minLength: 10 })}
-                    error={<ErrorMessage error={errors.alamatKTP} />}
+                    icon='fa fa-calendar'
+                    name='tanggalLahir'
+                    type='date'
+                    value={tanggalLahir}
+                    change={e => setTanggalLahir(e.target.value)}
+                    placeholder='Tanggal Lahir'
+                    innerRef={register({ required: true })}
+                    error={<ErrorMessage error={errors.tanggalLahir} />}
                   />
-                  <Row>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <InputanSelect
-                        icon='icon-tag'
-                        name='propinsiKTP'
-                        value={propinsiKTP}
-                        change={propinsiKTPSelectHandler}
-                        placeholder='Propinsi'
-                        innerRef={register({ required: true })}
-                        error={<ErrorMessage error={errors.propinsiKTP} />}
-                      >
-                        <option key='' value=''>
-                          Pilih Propinsi...
-                        </option>
-                        {propinsiKTPList.map(detail => (
-                          <option key={detail.propinsi_id} value={detail.propinsi_id}>
-                            {detail.propinsi_nama}
-                          </option>
-                        ))}
-                      </InputanSelect>
-                    </Col>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <InputanSelect
-                        icon='icon-tag'
-                        name='kotaKTP'
-                        value={kotaKTP}
-                        change={kotaKTPSelectHandler}
-                        placeholder='Kota'
-                        innerRef={register({ required: true })}
-                        error={<ErrorMessage error={errors.kotaKTP} />}
-                      >
-                        <option key='' value=''>
-                          Pilih Kota...
-                        </option>
-                        {kotaKTPList.map(detail => (
-                          <option key={detail.kota_id} value={detail.kota_id}>
-                            {detail.kota_nama}
-                          </option>
-                        ))}
-                      </InputanSelect>
-                    </Col>
-                  </Row>
+                </Col>
+              </Row>
 
-                  <Row>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <InputanSelect
-                        icon='fa fa-map-pin'
-                        name='kecamatanKTP'
-                        value={kecamatanKTP}
-                        change={kecamatanKTPSelectHandler}
-                        placeholder='Kecamatan'
-                        innerRef={register({ required: true })}
-                        error={<ErrorMessage error={errors.kecamatanKTP} />}
-                      >
-                        <option key='' value=''>
-                          Pilih Kecamatan...
-                        </option>
-                        {kecamatanKTPList.map(detail => (
-                          <option key={detail.kecamatan_id} value={detail.kecamatan_id}>
-                            {detail.kecamatan_nama}
-                          </option>
-                        ))}
-                      </InputanSelect>
-                    </Col>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <InputanSelect
-                        icon='fa fa-map-pin'
-                        name='kelurahanKTP'
-                        value={kelurahanKTP}
-                        change={e => setKelurahanKTP(e.target.value)}
-                        placeholder='Kelurahan'
-                        innerRef={register({ required: true })}
-                        error={<ErrorMessage error={errors.kelurahanKTP} />}
-                      >
-                        <option key='' value=''>
-                          Pilih Kelurahan...
-                        </option>
-                        {KelurahanKTPList.map(detail => (
-                          <option key={detail.kelurahan_id} value={detail.kelurahan_id}>
-                            {detail.kelurahan_nama}
-                          </option>
-                        ))}
-                      </InputanSelect>
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <Row>
-                        <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                          <Inputan
-                            icon='icon-directions'
-                            name='rtKTP'
-                            type='text'
-                            value={rtKTP}
-                            change={e => setRTKTP(e.target.value)}
-                            placeholder='RT'
-                            innerRef={register({ required: true })}
-                            error={<ErrorMessage error={errors.rtKTP} />}
-                          />
-                        </Col>
-                        <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                          <Inputan
-                            icon='icon-directions'
-                            name='rwKTP'
-                            type='text'
-                            value={rwKTP}
-                            change={e => setRWKTP(e.target.value)}
-                            placeholder='RW'
-                            innerRef={register({ required: true })}
-                            error={<ErrorMessage error={errors.rwKTP} />}
-                          />
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
-                      <Inputan
-                        icon='icon-direction'
-                        name='kodePOSKTP'
-                        type='text'
-                        value={kodePOSKTP}
-                        change={e => setKodePOSKTP(filterNonDigits(e.target.value))}
-                        placeholder='Kode POS'
-                        innerRef={register({
-                          required: true,
-                          minLength: 5,
-                          maxLength: 5
-                        })}
-                        error={<ErrorMessage error={errors.kodePOSKTP} />}
-                      />
-                    </Col>
-                  </Row>
-
-                  {/* ----------------------------------- P R I V A S I ----------------------------------- */}
-                  <Label htmlFor='prependedInput' className='register-label-header'>
-                    Privasi
-                  </Label>
-                  <ColoredLine color='#ff9375' />
+              <Row>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
                   <Inputan
-                    icon='icon-envelope'
-                    name='email'
+                    icon='fa fa-id-card-o'
+                    name='nik'
                     type='text'
-                    value={email}
-                    change={e => setEmail(e.target.value)}
-                    placeholder='email'
+                    value={nik}
+                    change={e => setNIK(filterNonDigits(e.target.value))}
+                    placeholder='NIK'
                     innerRef={register({
                       required: true,
-                      pattern: /^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$/i
+                      minLength: 16,
+                      maxLength: 16
                     })}
-                    error={<ErrorMessage error={errors.email} />}
+                    error={<ErrorMessage error={errors.nik} />}
                   />
-                  <InputanPassword
-                    icon='icon-lock'
-                    name='password'
-                    value={password}
-                    change={e => setPassword(e.target.value)}
-                    placeholder='Password'
+                </Col>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                  <Inputan
+                    icon='fa fa-id-card-o'
+                    name='kk'
+                    type='text'
+                    value={kk}
+                    change={e => setKK(filterNonDigits(e.target.value))}
+                    placeholder='No KK'
+                    innerRef={register({ required: true })}
+                    error={<ErrorMessage error={errors.kk} />}
+                  />
+                </Col>
+              </Row>
+
+              <Row>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                  <Inputan
+                    icon='icon-phone'
+                    name='hp'
+                    type='text'
+                    value={hp}
+                    change={e => setHP(filterNonDigits(e.target.value))}
+                    placeholder='No HP'
+                    innerRef={register({ required: true })}
+                    error={<ErrorMessage error={errors.hp} />}
+                  />
+                </Col>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                  <Inputan
+                    icon='icon-layers'
+                    name='pekerjaan'
+                    type='text'
+                    value={pekerjaan}
+                    change={e => setPekerjaan(e.target.value)}
+                    placeholder='Pekerjaan'
+                    feedback='Pekerjaan Harus Di Isi'
+                  />
+                </Col>
+              </Row>
+
+              <Row>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                  <InputanSelect
+                    icon='fa fa-hand-pointer-o'
+                    name='agama'
+                    value={agama}
+                    change={e => setAgama(e.target.value)}
+                    innerRef={register({ required: true })}
+                    error={<ErrorMessage error={errors.agama} />}
+                  >
+                    <option key='' value=''>
+                          Pilih Agama...
+                    </option>
+                    {agamaList.map(detail => (
+                      <option key={detail.agama_id} value={detail.agama_id}>
+                        {detail.agama_nama}
+                      </option>
+                    ))}
+                  </InputanSelect>
+                </Col>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                  <InputanSelect
+                    icon='icon-tag'
+                    name='statusNikah'
+                    value={statusNikah}
+                    change={e => setStatusNikah(e.target.value)}
+                    placeholder='Pilih Agama'
+                    innerRef={register({ required: true })}
+                    error={<ErrorMessage error={errors.statusNikah} />}
+                  >
+                    <option key='' value=''>
+                          Pilih Status...
+                    </option>
+                    {statusNikahList.map(detail => (
+                      <option key={detail.marital_id} value={detail.marital_id}>
+                        {detail.marital_nama}
+                      </option>
+                    ))}
+                  </InputanSelect>
+                </Col>
+              </Row>
+
+              {/* ----------------------------------- T E M P A T   T I N G G A L ----------------------------------- */}
+
+              <Label htmlFor='prependedInput' className='register-label-header'>
+                    Tempat Tinggal
+              </Label>
+              <ColoredLine color='#ff9375' />
+
+              <Inputan
+                icon='fa fa-map-o'
+                name='alamat'
+                type='text'
+                value={alamat}
+                change={e => setAlamat(e.target.value)}
+                placeholder='Alamat'
+                innerRef={register({ required: true, minLength: 10 })}
+                error={<ErrorMessage error={errors.alamat} />}
+              />
+              <Row>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                  <InputanSelect
+                    icon='icon-tag'
+                    name='propinsi'
+                    value={propinsi}
+                    change={propinsiSelectHandler}
+                    placeholder='Propinsi'
+                    innerRef={register({ required: true })}
+                    error={<ErrorMessage error={errors.propinsi} />}
+                  >
+                    <option key='' value=''>
+                          Pilih Propinsi...
+                    </option>
+                    {propinsiList.map(detail => (
+                      <option key={detail.propinsi_id} value={detail.propinsi_id}>
+                        {detail.propinsi_nama}
+                      </option>
+                    ))}
+                  </InputanSelect>
+                </Col>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                  <InputanSelect
+                    icon='icon-tag'
+                    name='kota'
+                    value={kota}
+                    change={kotaSelectHandler}
+                    placeholder='Kota'
+                    innerRef={register({ required: true })}
+                    error={<ErrorMessage error={errors.kota} />}
+                  >
+                    <option key='' value=''>
+                          Pilih Kota...
+                    </option>
+                    {kotaList.map(detail => (
+                      <option key={detail.kota_id} value={detail.kota_id}>
+                        {detail.kota_nama}
+                      </option>
+                    ))}
+                  </InputanSelect>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                  <InputanSelect
+                    icon='fa fa-map-pin'
+                    name='kecamatan'
+                    value={kecamatan}
+                    change={kecamatanSelectHandler}
+                    placeholder='Kecamatan'
+                    innerRef={register({ required: true })}
+                    error={<ErrorMessage error={errors.kecamatan} />}
+                  >
+                    <option key='' value=''>
+                          Pilih Kecamatan...
+                    </option>
+                    {kecamatanList.map(detail => (
+                      <option key={detail.kecamatan_id} value={detail.kecamatan_id}>
+                        {detail.kecamatan_nama}
+                      </option>
+                    ))}
+                  </InputanSelect>
+                </Col>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                  <InputanSelect
+                    icon='fa fa-map-pin'
+                    name='kelurahan'
+                    value={kelurahan}
+                    change={e => setKelurahan(e.target.value)}
+                    placeholder='Kelurahan'
+                    innerRef={register({ required: true })}
+                    error={<ErrorMessage error={errors.kelurahan} />}
+                  >
+                    <option key='' value=''>
+                          Pilih Kelurahan...
+                    </option>
+                    {KelurahanList.map(detail => (
+                      <option key={detail.kelurahan_id} value={detail.kelurahan_id}>
+                        {detail.kelurahan_nama}
+                      </option>
+                    ))}
+                  </InputanSelect>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                  <Row>
+                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                      <Inputan
+                        icon='icon-directions'
+                        name='rt'
+                        type='text'
+                        value={rt}
+                        change={e => setRT(filterNonDigits(e.target.value))}
+                        placeholder='RT'
+                        innerRef={register({ required: true })}
+                        error={<ErrorMessage error={errors.rt} />}
+                      />
+                    </Col>
+                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                      <Inputan
+                        icon='icon-directions'
+                        name='rw'
+                        type='text'
+                        value={rw}
+                        change={e => setRW(filterNonDigits(e.target.value))}
+                        placeholder='RW'
+                        innerRef={register({ required: true })}
+                        error={<ErrorMessage error={errors.rw} />}
+                      />
+                    </Col>
+                  </Row>
+                </Col>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                  <Inputan
+                    icon='icon-direction'
+                    name='kodePOS'
+                    type='text'
+                    value={kodePOS}
+                    change={e => setKodePOS(filterNonDigits(e.target.value))}
+                    placeholder='Kode POS'
                     innerRef={register({
-                      required: true
+                      required: true,
+                      minLength: 5,
+                      maxLength: 5
                     })}
-                    error={<ErrorMessage error={errors.password} />}
+                    error={<ErrorMessage error={errors.kodePOS} />}
                   />
-                  {/* <InputanPassword
+                </Col>
+              </Row>
+
+              {/* ----------------------------------- K T P ----------------------------------- */}
+
+              <Row>
+                <Col>
+                  <Label htmlFor='prependedInput' className='register-label-header'>
+                        Alamat Sesuai KTP
+                  </Label>
+                </Col>
+                <Col>
+                  <div>
+                    <div className='checkbox checkbox-primary checkbox-align-right'>
+                      <Input name='checkSama' type='checkbox' value='option1' onChange={handleChangeCheck} />
+                      <Label for='checkbox2'>Sama Seperti Diatas</Label>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+              <ColoredLine color='#ff9375' />
+
+              <Inputan
+                icon='fa fa-map-o'
+                name='alamatKTP'
+                type='text'
+                value={alamatKTP}
+                change={e => setAlamatKTP(e.target.value)}
+                placeholder='Alamat'
+                innerRef={register({ required: true, minLength: 10 })}
+                error={<ErrorMessage error={errors.alamatKTP} />}
+              />
+              <Row>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                  <InputanSelect
+                    icon='icon-tag'
+                    name='propinsiKTP'
+                    value={propinsiKTP}
+                    change={propinsiKTPSelectHandler}
+                    placeholder='Propinsi'
+                    innerRef={register({ required: true })}
+                    error={<ErrorMessage error={errors.propinsiKTP} />}
+                  >
+                    <option key='' value=''>
+                          Pilih Propinsi...
+                    </option>
+                    {propinsiKTPList.map(detail => (
+                      <option key={detail.propinsi_id} value={detail.propinsi_id}>
+                        {detail.propinsi_nama}
+                      </option>
+                    ))}
+                  </InputanSelect>
+                </Col>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                  <InputanSelect
+                    icon='icon-tag'
+                    name='kotaKTP'
+                    value={kotaKTP}
+                    change={kotaKTPSelectHandler}
+                    placeholder='Kota'
+                    innerRef={register({ required: true })}
+                    error={<ErrorMessage error={errors.kotaKTP} />}
+                  >
+                    <option key='' value=''>
+                          Pilih Kota...
+                    </option>
+                    {kotaKTPList.map(detail => (
+                      <option key={detail.kota_id} value={detail.kota_id}>
+                        {detail.kota_nama}
+                      </option>
+                    ))}
+                  </InputanSelect>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                  <InputanSelect
+                    icon='fa fa-map-pin'
+                    name='kecamatanKTP'
+                    value={kecamatanKTP}
+                    change={kecamatanKTPSelectHandler}
+                    placeholder='Kecamatan'
+                    innerRef={register({ required: true })}
+                    error={<ErrorMessage error={errors.kecamatanKTP} />}
+                  >
+                    <option key='' value=''>
+                          Pilih Kecamatan...
+                    </option>
+                    {kecamatanKTPList.map(detail => (
+                      <option key={detail.kecamatan_id} value={detail.kecamatan_id}>
+                        {detail.kecamatan_nama}
+                      </option>
+                    ))}
+                  </InputanSelect>
+                </Col>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                  <InputanSelect
+                    icon='fa fa-map-pin'
+                    name='kelurahanKTP'
+                    value={kelurahanKTP}
+                    change={e => setKelurahanKTP(e.target.value)}
+                    placeholder='Kelurahan'
+                    innerRef={register({ required: true })}
+                    error={<ErrorMessage error={errors.kelurahanKTP} />}
+                  >
+                    <option key='' value=''>
+                          Pilih Kelurahan...
+                    </option>
+                    {KelurahanKTPList.map(detail => (
+                      <option key={detail.kelurahan_id} value={detail.kelurahan_id}>
+                        {detail.kelurahan_nama}
+                      </option>
+                    ))}
+                  </InputanSelect>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                  <Row>
+                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                      <Inputan
+                        icon='icon-directions'
+                        name='rtKTP'
+                        type='text'
+                        value={rtKTP}
+                        change={e => setRTKTP(e.target.value)}
+                        placeholder='RT'
+                        innerRef={register({ required: true })}
+                        error={<ErrorMessage error={errors.rtKTP} />}
+                      />
+                    </Col>
+                    <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                      <Inputan
+                        icon='icon-directions'
+                        name='rwKTP'
+                        type='text'
+                        value={rwKTP}
+                        change={e => setRWKTP(e.target.value)}
+                        placeholder='RW'
+                        innerRef={register({ required: true })}
+                        error={<ErrorMessage error={errors.rwKTP} />}
+                      />
+                    </Col>
+                  </Row>
+                </Col>
+                <Col md='6' lg='6' xl='6' sm='auto' xs='auto'>
+                  <Inputan
+                    icon='icon-direction'
+                    name='kodePOSKTP'
+                    type='text'
+                    value={kodePOSKTP}
+                    change={e => setKodePOSKTP(filterNonDigits(e.target.value))}
+                    placeholder='Kode POS'
+                    innerRef={register({
+                      required: true,
+                      minLength: 5,
+                      maxLength: 5
+                    })}
+                    error={<ErrorMessage error={errors.kodePOSKTP} />}
+                  />
+                </Col>
+              </Row>
+
+              {/* ----------------------------------- P R I V A S I ----------------------------------- */}
+              <Label htmlFor='prependedInput' className='register-label-header'>
+                    Privasi
+              </Label>
+              <ColoredLine color='#ff9375' />
+              <Inputan
+                icon='icon-envelope'
+                name='email'
+                type='text'
+                value={email}
+                change={e => setEmail(e.target.value)}
+                placeholder='email'
+                innerRef={register({
+                  required: true,
+                  pattern: /^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$/i
+                })}
+                error={<ErrorMessage error={errors.email} />}
+              />
+              <InputanPassword
+                icon='icon-lock'
+                name='password'
+                value={password}
+                change={e => setPassword(e.target.value)}
+                placeholder='Password'
+                innerRef={register({
+                  required: true
+                })}
+                error={<ErrorMessage error={errors.password} />}
+              />
+              {/* <InputanPassword
                     icon="icon-lock"
                     name="confirmPassword"
                     value={confirmPassword}
@@ -825,17 +820,16 @@ const Register = props => {
                     error={<ErrorMessage error={errors.confirmPassword} />}
                   /> */}
 
-                  <Button color='success' block size='lg'>
+              <Button color='success' block size='lg'>
                     Create Account
-                  </Button>
-                </Form>
-              </CardBody>
-              <CardFooter className='text-center'>
-                <Label htmlFor='prependedInput'>Pastikan data yang di Input sudah Benar.</Label>
-              </CardFooter>
-            </Card>
-          </Col>
-        </Row>
+              </Button>
+            </Form>
+          </CardBody>
+          <CardFooter className='text-center'>
+            <Label htmlFor='prependedInput'>Pastikan data yang di Input sudah Benar.</Label>
+          </CardFooter>
+        </Card>
+
       </Container>
     </>
   )
