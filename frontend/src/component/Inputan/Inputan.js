@@ -12,7 +12,16 @@ const Inputan = props => {
               <i className={icon} />
             </InputGroupText>
           </InputGroupAddon>
-          <Input name={name} type={type} value={value} onChange={change} placeholder={placeholder} autoComplete='off' autoFocus={focus} innerRef={innerRef} />
+          <Input
+            name={name}
+            type={type}
+            value={value}
+            onChange={change}
+            placeholder={placeholder}
+            autoComplete='off'
+            autoFocus={focus} i
+            nnerRef={innerRef}
+          />
         </InputGroup>
         {error}
       </div>

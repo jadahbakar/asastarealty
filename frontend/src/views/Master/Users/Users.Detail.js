@@ -808,17 +808,6 @@ const Register = props => {
                 })}
                 error={<ErrorMessage error={errors.password} />}
               />
-              {/* <InputanPassword
-                    icon="icon-lock"
-                    name="confirmPassword"
-                    value={confirmPassword}
-                    change={e => setconfirmPassword(e.target.value)}
-                    placeholder="Tulis Ulang Password"
-                    innerRef={register({
-                      required: true
-                    })}
-                    error={<ErrorMessage error={errors.confirmPassword} />}
-                  /> */}
 
               <Button color='success' block size='lg'>
                     Create Account

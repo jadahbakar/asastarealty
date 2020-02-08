@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
 import { Button, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap'
 
+const styles = {
+  buttonStyle: {
+    position: 'absolute', left: '1em', top: '0.7em'
+  }
+}
+
 const InputanPassword = props => {
   const { icon, name, value, change, placeholder, innerRef } = props
   const [hiddenPassword, setHiddenPassword] = useState(true)
@@ -9,6 +15,7 @@ const InputanPassword = props => {
   const toggleShow = () => {
     setHiddenPassword(!hiddenPassword)
   }
+  // --------------------------------------- Content
   const content = (
     <>
       <div style={{ marginBottom: '1em' }}>
@@ -18,7 +25,6 @@ const InputanPassword = props => {
               <i className={icon} />
             </InputGroupText>
           </InputGroupAddon>
-
           <Input
             name={name}
             type={hiddenPassword ? 'password' : 'text'}
@@ -30,7 +36,7 @@ const InputanPassword = props => {
           />
           <InputGroupAddon addonType='append'>
             <Button outline color='info' onClick={toggleShow}>
-              <i className='fa fa-eye' style={{ position: 'absolute', left: '1em', top: '0.7em' }} />
+              <i className='fa fa-eye' style={styles.buttonStyle} />
             </Button>
           </InputGroupAddon>
         </InputGroup>
