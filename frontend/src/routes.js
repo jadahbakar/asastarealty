@@ -165,7 +165,7 @@ const routes = [
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
 
   { path: '/master/users', exact: true, name: 'Users', component: Users },
-  { path: '/master/users/detail', exact: true, name: 'UserDetail', component: UserDetail },
+  { path: '/master/users/detail', exact: true, name: 'UsersDetail', component: UserDetail },
   {
     path: '/master/registrasi',
     exact: true,
