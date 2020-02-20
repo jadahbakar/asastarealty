@@ -19,8 +19,8 @@ const Inputan = props => {
             onChange={change}
             placeholder={placeholder}
             autoComplete='off'
-            autoFocus={focus} i
-            nnerRef={innerRef}
+            autoFocus={focus}
+            innerRef={innerRef}
           />
         </InputGroup>
         {error}

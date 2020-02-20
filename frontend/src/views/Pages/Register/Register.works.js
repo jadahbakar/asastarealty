@@ -1,16 +1,16 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useReducer, useRef, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Button, Card, Input, CardHeader, CardBody, CardFooter, Col, Container, Row, Label, Form } from 'reactstrap'
-import { Inputan, InputanPassword, InputanSelect, useHttp, MyAlert } from 'component'
+import { Inputan, InputanPassword, InputanSelect, useHttp } from 'component'
+import Swal from 'sweetalert2'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 import { API_ROOT } from 'api'
 import { useForm } from 'react-hook-form'
+import { Redirect } from 'react-router-dom'
 import ErrorMessage from './errorMessage'
-import { encrypt } from 'utils/encrypt'
-import styles from './register.css'
-import { scroller } from 'react-scroll'
-import registerReducer, { initialState, FIELD, CLEAR, CHECKED, UNCHECKED, PROPINSI_SELECT, INPUT_NUMBER } from './Register.reducer'
+
+const CryptoJS = require('crypto-js')
 
 const ColoredLine = ({ color }) => (
   <hr
@@ -28,92 +28,155 @@ ColoredLine.propTypes = {
   color: PropTypes.string.isRequired
 }
 
+const encrypt = (msg, pass) => {
+  const keySize = 256
+  const iterations = 100
+  const salt = CryptoJS.lib.WordArray.random(128 / 8)
+
+  const key = CryptoJS.PBKDF2(pass, salt, {
+    keySize: keySize / 32,
+    iterations
+  })
+  const iv = CryptoJS.lib.WordArray.random(128 / 8)
+  const encrypted = CryptoJS.AES.encrypt(msg, key, {
+    iv,
+    padding: CryptoJS.pad.Pkcs7,
+    mode: CryptoJS.mode.CBC
+  })
+  const transitmessage = salt.toString() + iv.toString() + encrypted.toString()
+  return transitmessage
+}
+
 const Register = props => {
   const backEndMaster = `${API_ROOT}/master`
   const backEndRegister = `${API_ROOT}/registrasi`
+
+  const [nama, setNama] = useState('')
+  const [tempatLahir, setTempatLahir] = useState('')
+  const [tanggalLahir, setTanggalLahir] = useState('')
+  const [nik, setNIK] = useState('')
+  const [kk, setKK] = useState('')
+  const [agama, setAgama] = useState()
+  const [hp, setHP] = useState('')
+  const [pekerjaan, setPekerjaan] = useState('')
+  const [statusNikah, setStatusNikah] = useState('')
+
+  const [alamat, setAlamat] = useState('')
+  const [propinsi, setPropinsi] = useState('')
+  const [kota, setKota] = useState('')
+  const [kecamatan, setKecamatan] = useState('')
+  const [kelurahan, setKelurahan] = useState('')
+  const [rt, setRT] = useState('')
+  const [rw, setRW] = useState('')
+  const [kodePOS, setKodePOS] = useState('')
+
+  const [alamatKTP, setAlamatKTP] = useState('')
+  const [propinsiKTP, setPropinsiKTP] = useState('')
+  const [kotaKTP, setKotaKTP] = useState('')
+  const [kecamatanKTP, setKecamatanKTP] = useState('')
+  const [kelurahanKTP, setKelurahanKTP] = useState('')
+  const [rtKTP, setRTKTP] = useState('')
+  const [rwKTP, setRWKTP] = useState('')
+  const [kodePOSKTP, setKodePOSKTP] = useState('')
+  const [checkedSama, setCheckedSama] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setconfirmPassword] = useState('')
+
+  // const [nama, setNama] = useState('Aninditya Qameela Sauqiya')
+  // const [tempatLahir, setTempatLahir] = useState('Semarang')
+  // const [tanggalLahir, setTanggalLahir] = useState('2014-04-19')
+  // const [nik, setNIK] = useState('3374033012810001')
+  // const [kk, setKK] = useState('3374033012810001')
+  // const [agama, setAgama] = useState('1')
+  // const [hp, setHP] = useState('08121557997')
+  // const [pekerjaan, setPekerjaan] = useState('Wirausaha')
+  // const [statusNikah, setStatusNikah] = useState('1')
+
+  // const [alamat, setAlamat] = useState('Semarang Timur')
+  // const [propinsi, setPropinsi] = useState('33')
+  // const [kota, setKota] = useState('3374')
+  // const [kecamatan, setKecamatan] = useState('3374080')
+  // const [kelurahan, setKelurahan] = useState('3374080006')
+  // const [rt, setRT] = useState('05')
+  // const [rw, setRW] = useState('03')
+  // const [kodePOS, setKodePOS] = useState('50195')
+
+  // const [alamatKTP, setAlamatKTP] = useState('Semarang Timur')
+  // const [propinsiKTP, setPropinsiKTP] = useState('33')
+  // const [kotaKTP, setKotaKTP] = useState('3374')
+  // const [kecamatanKTP, setKecamatanKTP] = useState('3374080')
+  // const [kelurahanKTP, setKelurahanKTP] = useState('3374080006')
+  // const [rtKTP, setRTKTP] = useState('08')
+  // const [rwKTP, setRWKTP] = useState('09')
+  // const [kodePOSKTP, setKodePOSKTP] = useState('50198')
+  // const [checkedSama, setCheckedSama] = useState(false)
+  // const [email, setEmail] = useState('dedy@gmail.com')
+  // const [password, setPassword] = useState('asdfghjkl')
+  // const [confirmPassword, setconfirmPassword] = useState('asdfghjkl');
+
   const { errors, register, handleSubmit } = useForm()
 
-  const [state, dispatch] = useReducer(registerReducer, initialState)
-  const {
-    nama,
-    tempatLahir,
-    tanggalLahir,
-    nik,
-    kk,
-    agama,
-    hp,
-    pekerjaan,
-    statusNikah,
-    alamat,
-    propinsi,
-    kota,
-    kecamatan,
-    kelurahan,
-    rt,
-    rw,
-    kodePOS,
-    alamatKTP,
-    propinsiKTP,
-    kotaKTP,
-    kecamatanKTP,
-    kelurahanKTP,
-    rtKTP,
-    rwKTP,
-    kodePOSKTP,
-    checkedSama,
-    email,
-    password
-  } = state
-
+  const clearForm = () => {
+    setNama('')
+    setTempatLahir('')
+    setTanggalLahir('')
+    setNIK('')
+    setKK('')
+    setAgama()
+    setHP('')
+    setPekerjaan('')
+    setStatusNikah('')
+    setAlamat('')
+    setPropinsi('')
+    setKota('')
+    setRT('')
+    setRW('')
+    setKelurahan('')
+    setKecamatan('')
+    setKodePOS('')
+    setAlamatKTP('')
+    setPropinsiKTP('')
+    setKotaKTP('')
+    setRTKTP('')
+    setRWKTP('')
+    setKelurahanKTP('')
+    setKecamatanKTP('')
+    setKodePOSKTP('')
+    setEmail('')
+    setPassword('')
+    // setconfirmPassword('');
+  }
   // --------------------------------------- DidMount get Token
   const [tokenRegister] = useHttp(`${backEndRegister}`, '', [])
 
+  // --------------------------------------- Only Number
+  const filterNonDigits = value => (value ? value.replace(/\D+/, '') : '')
+
   // --------------------------------------- P R I B A D I
   const [agamaList] = useHttp(`${backEndMaster}/agama`, '', [])
-  // console.log('TCL: ${backEndMaster}/agama', `${backEndMaster}/agama`)
-  // console.log('TCL: agamaList', agamaList)
-
   const [statusNikahList] = useHttp(`${backEndMaster}/marital`, '', [])
 
   // --------------------------------------- T E M P A T   T I N G G A L
   const [propinsiList] = useHttp(`${backEndMaster}/propinsi`, '', [])
-  const [kotaList] = useHttp(`${backEndMaster}/kota/${state.propinsi}`, '', [propinsi])
-  const [kecamatanList] = useHttp(`${backEndMaster}/kecamatan/${state.kota}`, '', [kota])
-  const [KelurahanList] = useHttp(`${backEndMaster}/kelurahan/${state.kecamatan}`, '', [kecamatan])
+  const [kotaList] = useHttp(`${backEndMaster}/kota/${propinsi}`, '', [propinsi])
+  const [kecamatanList] = useHttp(`${backEndMaster}/kecamatan/${kota}`, '', [kota])
+  const [KelurahanList] = useHttp(`${backEndMaster}/kelurahan/${kecamatan}`, '', [kecamatan])
 
   const propinsiSelectHandler = e => {
+    kotaList.length = 0
     kecamatanList.length = 0
     KelurahanList.length = 0
-    dispatch({
-      type: PROPINSI_SELECT,
-      fieldName: 'propinsi',
-      payload: e.currentTarget.value
-    })
+    setPropinsi(e.target.value)
   }
 
   const kotaSelectHandler = e => {
     KelurahanList.length = 0
-    dispatch({
-      type: FIELD,
-      fieldName: 'kota',
-      payload: e.currentTarget.value
-    })
+    setKota(e.target.value)
   }
 
   const kecamatanSelectHandler = e => {
-    dispatch({
-      type: FIELD,
-      fieldName: 'kecamatan',
-      payload: e.currentTarget.value
-    })
-  }
-
-  const kelurahanSelectHandler = e => {
-    dispatch({
-      type: FIELD,
-      fieldName: 'kelurahan',
-      payload: e.currentTarget.value
-    })
+    setKecamatan(e.target.value)
   }
 
   // --------------------------------------- K T P
@@ -123,60 +186,57 @@ const Register = props => {
   const [KelurahanKTPList] = useHttp(`${backEndMaster}/kelurahan/${kecamatanKTP}`, '', [kecamatanKTP])
 
   const propinsiKTPSelectHandler = e => {
+    kotaKTPList.length = 0
     kecamatanKTPList.length = 0
     KelurahanKTPList.length = 0
-    dispatch({
-      type: FIELD,
-      fieldName: 'propinsiKTP',
-      payload: e.currentTarget.value
-    })
+    setPropinsiKTP(e.target.value)
   }
 
   const kotaKTPSelectHandler = e => {
     KelurahanKTPList.length = 0
-    dispatch({
-      type: FIELD,
-      fieldName: 'kotaKTP',
-      payload: e.currentTarget.value
-    })
+    setKotaKTP(e.target.value)
   }
 
   const kecamatanKTPSelectHandler = e => {
-    dispatch({
-      type: FIELD,
-      fieldName: 'kecamatanKTP',
-      payload: e.currentTarget.value
-    })
-  }
-
-  const kelurahanKTPSelectHandler = e => {
-    dispatch({
-      type: FIELD,
-      fieldName: 'kelurahanKTP',
-      payload: e.currentTarget.value
-    })
+    setKecamatanKTP(e.target.value)
   }
 
   // --------------------------------------- S A M A
+  const samaCopy = () => {
+    setAlamatKTP(alamat)
+    setPropinsiKTP(propinsi)
+    setKotaKTP(kota)
+    setKecamatanKTP(kecamatan)
+    setKelurahanKTP(kelurahan)
+    setRTKTP(rt)
+    setRWKTP(rw)
+    setKodePOSKTP(kodePOS)
+  }
 
   const handleChangeCheck = () => {
+    setCheckedSama(!checkedSama)
     if (!checkedSama) {
-      scroller.scrollTo('myScrollToElement', {
-        duration: 1500,
-        delay: 57,
-        smooth: true,
-        offset: -10
-      })
-      dispatch({ type: CHECKED })
+      samaCopy()
     } else {
-      dispatch({ type: UNCHECKED })
+      setAlamatKTP('')
+      setPropinsiKTP('')
+      setKotaKTP('')
+      setKecamatanKTP('')
+      setKelurahanKTP('')
+      setRTKTP('')
+      setRWKTP('')
+      setKodePOSKTP('')
     }
   }
 
   // --------------------------------------- A L E R T
+  const renderRedirect = () => {
+    return <Redirect to='/' />
+  }
 
   const hideAlert = () => {
-    dispatch({ type: 'clear' })
+    clearForm()
+    // renderRedirect();
     props.history.push('/')
   }
 
@@ -232,14 +292,30 @@ const Register = props => {
         regPassword: hashString
       })
       .then(response => {
-        MyAlert('success', 'Success', `UserId Anda : ${response.data}`, 2000, hideAlert)
+        Swal.fire({
+          type: 'success',
+          title: 'Success',
+          text: `UserId Anda : ${response.data}`,
+          timer: 1000,
+          footer: '@asastarealty'
+        }).then(result => {
+          hideAlert()
+        })
       })
       .catch(error => {
         let keterangan = error.response.data
         if (error.response.data.includes('duplicate')) {
           keterangan = 'Data Sudah Ada'
         }
-        MyAlert('error', 'Gagal Menyimpan', keterangan, 2000, hideAlert)
+        Swal.fire({
+          type: 'error',
+          title: 'Gagal Menyiman',
+          text: keterangan,
+          timer: 1000,
+          footer: '@asastarealty'
+        }).then(result => {
+          hideAlert()
+        })
       })
   }
 
@@ -261,12 +337,7 @@ const Register = props => {
                     name='nama'
                     type='text'
                     value={nama}
-                    change={e =>
-                      dispatch({
-                        type: FIELD,
-                        fieldName: 'nama',
-                        payload: e.target.value
-                      })}
+                    change={e => setNama(e.target.value)}
                     placeholder='Nama'
                     innerRef={register({ required: true, minLength: 3 })}
                     error={<ErrorMessage error={errors.nama} />}
@@ -282,12 +353,7 @@ const Register = props => {
                         name='tempatLahir'
                         type='text'
                         value={tempatLahir}
-                        change={e =>
-                          dispatch({
-                            type: FIELD,
-                            fieldName: 'tempatLahir',
-                            payload: e.target.value
-                          })}
+                        change={e => setTempatLahir(e.target.value)}
                         placeholder='Tempat Lahir'
                         innerRef={register({ required: true, minLength: 3 })}
                         error={<ErrorMessage error={errors.tempatLahir} />}
@@ -299,12 +365,7 @@ const Register = props => {
                         name='tanggalLahir'
                         type='date'
                         value={tanggalLahir}
-                        change={e =>
-                          dispatch({
-                            type: FIELD,
-                            fieldName: 'tanggalLahir',
-                            payload: e.target.value
-                          })}
+                        change={e => setTanggalLahir(e.target.value)}
                         placeholder='Tanggal Lahir'
                         innerRef={register({ required: true })}
                         error={<ErrorMessage error={errors.tanggalLahir} />}
@@ -319,14 +380,8 @@ const Register = props => {
                         name='nik'
                         type='text'
                         value={nik}
-                        change={e =>
-                          dispatch({
-                            type: INPUT_NUMBER,
-                            fieldName: 'nik',
-                            payload: e.target.value
-                          })}
+                        change={e => setNIK(filterNonDigits(e.target.value))}
                         placeholder='NIK'
-
                         innerRef={register({
                           required: true,
                           minLength: 16,
@@ -341,12 +396,7 @@ const Register = props => {
                         name='kk'
                         type='text'
                         value={kk}
-                        change={e =>
-                          dispatch({
-                            type: INPUT_NUMBER,
-                            fieldName: 'kk',
-                            payload: e.target.value
-                          })}
+                        change={e => setKK(filterNonDigits(e.target.value))}
                         placeholder='No KK'
                         innerRef={register({ required: true })}
                         error={<ErrorMessage error={errors.kk} />}
@@ -361,12 +411,7 @@ const Register = props => {
                         name='hp'
                         type='text'
                         value={hp}
-                        change={e =>
-                          dispatch({
-                            type: INPUT_NUMBER,
-                            fieldName: 'hp',
-                            payload: e.target.value
-                          })}
+                        change={e => setHP(filterNonDigits(e.target.value))}
                         placeholder='No HP'
                         innerRef={register({ required: true })}
                         error={<ErrorMessage error={errors.hp} />}
@@ -378,12 +423,7 @@ const Register = props => {
                         name='pekerjaan'
                         type='text'
                         value={pekerjaan}
-                        change={e =>
-                          dispatch({
-                            type: FIELD,
-                            fieldName: 'pekerjaan',
-                            payload: e.target.value
-                          })}
+                        change={e => setPekerjaan(e.target.value)}
                         placeholder='Pekerjaan'
                         feedback='Pekerjaan Harus Di Isi'
                       />
@@ -396,12 +436,7 @@ const Register = props => {
                         icon='fa fa-hand-pointer-o'
                         name='agama'
                         value={agama}
-                        change={e =>
-                          dispatch({
-                            type: FIELD,
-                            fieldName: 'agama',
-                            payload: e.target.value
-                          })}
+                        change={e => setAgama(e.target.value)}
                         innerRef={register({ required: true })}
                         error={<ErrorMessage error={errors.agama} />}
                       >
@@ -420,12 +455,7 @@ const Register = props => {
                         icon='icon-tag'
                         name='statusNikah'
                         value={statusNikah}
-                        change={e =>
-                          dispatch({
-                            type: FIELD,
-                            fieldName: 'statusNikah',
-                            payload: e.target.value
-                          })}
+                        change={e => setStatusNikah(e.target.value)}
                         placeholder='Pilih Agama'
                         innerRef={register({ required: true })}
                         error={<ErrorMessage error={errors.statusNikah} />}
@@ -444,7 +474,7 @@ const Register = props => {
 
                   {/* ----------------------------------- T E M P A T   T I N G G A L ----------------------------------- */}
 
-                  <Label htmlFor='prependedInput' className='register-label-header' name='myScrollToElement'>
+                  <Label htmlFor='prependedInput' className='register-label-header'>
                     Tempat Tinggal
                   </Label>
                   <ColoredLine color='#ff9375' />
@@ -454,12 +484,7 @@ const Register = props => {
                     name='alamat'
                     type='text'
                     value={alamat}
-                    change={e =>
-                      dispatch({
-                        type: FIELD,
-                        fieldName: 'alamat',
-                        payload: e.target.value
-                      })}
+                    change={e => setAlamat(e.target.value)}
                     placeholder='Alamat'
                     innerRef={register({ required: true, minLength: 10 })}
                     error={<ErrorMessage error={errors.alamat} />}
@@ -533,7 +558,7 @@ const Register = props => {
                         icon='fa fa-map-pin'
                         name='kelurahan'
                         value={kelurahan}
-                        change={kelurahanSelectHandler}
+                        change={e => setKelurahan(e.target.value)}
                         placeholder='Kelurahan'
                         innerRef={register({ required: true })}
                         error={<ErrorMessage error={errors.kelurahan} />}
@@ -559,12 +584,7 @@ const Register = props => {
                             name='rt'
                             type='text'
                             value={rt}
-                            change={e =>
-                              dispatch({
-                                type: INPUT_NUMBER,
-                                fieldName: 'rt',
-                                payload: e.target.value
-                              })}
+                            change={e => setRT(filterNonDigits(e.target.value))}
                             placeholder='RT'
                             innerRef={register({ required: true })}
                             error={<ErrorMessage error={errors.rt} />}
@@ -576,12 +596,7 @@ const Register = props => {
                             name='rw'
                             type='text'
                             value={rw}
-                            change={e =>
-                              dispatch({
-                                type: INPUT_NUMBER,
-                                fieldName: 'rw',
-                                payload: e.target.value
-                              })}
+                            change={e => setRW(filterNonDigits(e.target.value))}
                             placeholder='RW'
                             innerRef={register({ required: true })}
                             error={<ErrorMessage error={errors.rw} />}
@@ -595,12 +610,7 @@ const Register = props => {
                         name='kodePOS'
                         type='text'
                         value={kodePOS}
-                        change={e =>
-                          dispatch({
-                            type: INPUT_NUMBER,
-                            fieldName: 'kodePOS',
-                            payload: e.target.value
-                          })}
+                        change={e => setKodePOS(filterNonDigits(e.target.value))}
                         placeholder='Kode POS'
                         innerRef={register({
                           required: true,
@@ -621,10 +631,11 @@ const Register = props => {
                       </Label>
                     </Col>
                     <Col>
-
-                      <div className='ks-cboxtags'>
-                        <input type='checkbox' id='checkbox' value={checkedSama} onChange={handleChangeCheck} />
-                        <label htmlFor='checkbox'>Sama Seperti Diatas</label>
+                      <div>
+                        <div className='checkbox checkbox-primary checkbox-align-right'>
+                          <Input name='checkSama' type='checkbox' value='option1' onChange={handleChangeCheck} />
+                          <Label for='checkbox2'>Sama Seperti Diatas</Label>
+                        </div>
                       </div>
                     </Col>
                   </Row>
@@ -635,12 +646,7 @@ const Register = props => {
                     name='alamatKTP'
                     type='text'
                     value={alamatKTP}
-                    change={e =>
-                      dispatch({
-                        type: FIELD,
-                        fieldName: 'alamatKTP',
-                        payload: e.target.value
-                      })}
+                    change={e => setAlamatKTP(e.target.value)}
                     placeholder='Alamat'
                     innerRef={register({ required: true, minLength: 10 })}
                     error={<ErrorMessage error={errors.alamatKTP} />}
@@ -714,7 +720,7 @@ const Register = props => {
                         icon='fa fa-map-pin'
                         name='kelurahanKTP'
                         value={kelurahanKTP}
-                        change={kelurahanKTPSelectHandler}
+                        change={e => setKelurahanKTP(e.target.value)}
                         placeholder='Kelurahan'
                         innerRef={register({ required: true })}
                         error={<ErrorMessage error={errors.kelurahanKTP} />}
@@ -740,13 +746,7 @@ const Register = props => {
                             name='rtKTP'
                             type='text'
                             value={rtKTP}
-                            change={e =>
-                              dispatch({
-                                type: INPUT_NUMBER,
-                                fieldName: 'rtKTP',
-                                payload: e.target.value
-                              })}
-
+                            change={e => setRTKTP(e.target.value)}
                             placeholder='RT'
                             innerRef={register({ required: true })}
                             error={<ErrorMessage error={errors.rtKTP} />}
@@ -758,12 +758,7 @@ const Register = props => {
                             name='rwKTP'
                             type='text'
                             value={rwKTP}
-                            change={e =>
-                              dispatch({
-                                type: INPUT_NUMBER,
-                                fieldName: 'rwKTP',
-                                payload: e.target.value
-                              })}
+                            change={e => setRWKTP(e.target.value)}
                             placeholder='RW'
                             innerRef={register({ required: true })}
                             error={<ErrorMessage error={errors.rwKTP} />}
@@ -777,12 +772,7 @@ const Register = props => {
                         name='kodePOSKTP'
                         type='text'
                         value={kodePOSKTP}
-                        change={e =>
-                          dispatch({
-                            type: INPUT_NUMBER,
-                            fieldName: 'kodePOSKTP',
-                            payload: e.target.value
-                          })}
+                        change={e => setKodePOSKTP(filterNonDigits(e.target.value))}
                         placeholder='Kode POS'
                         innerRef={register({
                           required: true,
@@ -804,12 +794,7 @@ const Register = props => {
                     name='email'
                     type='text'
                     value={email}
-                    change={e =>
-                      dispatch({
-                        type: FIELD,
-                        fieldName: 'email',
-                        payload: e.target.value
-                      })}
+                    change={e => setEmail(e.target.value)}
                     placeholder='email'
                     innerRef={register({
                       required: true,
@@ -821,18 +806,24 @@ const Register = props => {
                     icon='icon-lock'
                     name='password'
                     value={password}
-                    change={e =>
-                      dispatch({
-                        type: FIELD,
-                        fieldName: 'password',
-                        payload: e.target.value
-                      })}
+                    change={e => setPassword(e.target.value)}
                     placeholder='Password'
                     innerRef={register({
                       required: true
                     })}
                     error={<ErrorMessage error={errors.password} />}
                   />
+                  {/* <InputanPassword
+                    icon="icon-lock"
+                    name="confirmPassword"
+                    value={confirmPassword}
+                    change={e => setconfirmPassword(e.target.value)}
+                    placeholder="Tulis Ulang Password"
+                    innerRef={register({
+                      required: true
+                    })}
+                    error={<ErrorMessage error={errors.confirmPassword} />}
+                  /> */}
 
                   <Button color='success' block size='lg'>
                     Create Account

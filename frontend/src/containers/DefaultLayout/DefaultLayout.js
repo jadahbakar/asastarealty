@@ -95,7 +95,10 @@ const DefaultLayout = props => {
   const signOut = e => {
     e.preventDefault()
     axios.defaults.headers.common.Authorization = sessionStorage.getItem('tkn')
-    axios.post(`${backLogout}`).then(response => { console.log('TCL: response', response.data) }).catch(error => { if (error) { console.log(error) } })
+    axios.post(`${backLogout}`).then(response => {
+      // console.log('TCL: response', response.data)
+      console.log('Matur Nuwun')
+    }).catch(error => { if (error) { console.log(error) } })
 
     sessionStorage.clear()
     props.history.push('/login')

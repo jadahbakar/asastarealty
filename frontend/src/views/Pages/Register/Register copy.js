@@ -9,8 +9,7 @@ import { useForm } from 'react-hook-form'
 import ErrorMessage from './errorMessage'
 import { encrypt } from 'utils/encrypt'
 import styles from './register.css'
-import { scroller } from 'react-scroll'
-import registerReducer, { initialState, FIELD, CLEAR, CHECKED, UNCHECKED, PROPINSI_SELECT, INPUT_NUMBER } from './Register.reducer'
+import { Link, animateScroll as scroll, scroller } from 'react-scroll'
 
 const ColoredLine = ({ color }) => (
   <hr
@@ -28,10 +27,100 @@ ColoredLine.propTypes = {
   color: PropTypes.string.isRequired
 }
 
+const initialState = {
+  nama: '',
+  tempatLahir: '',
+  tanggalLahir: '',
+  nik: '',
+  kk: '',
+  agama: '',
+  hp: '',
+  pekerjaan: '',
+  statusNikah: '',
+  alamat: '',
+  propinsi: '',
+  kota: '',
+  kecamatan: '',
+  kelurahan: '',
+  rt: '',
+  rw: '',
+  kodePOS: '',
+  alamatKTP: '',
+  propinsiKTP: '',
+  kotaKTP: '',
+  kecamatanKTP: '',
+  kelurahanKTP: '',
+  rtKTP: '',
+  rwKTP: '',
+  kodePOSKTP: '',
+  checkedSama: false,
+  email: '',
+  password: ''
+}
+
+const registerReducer = (state, action) => {
+  switch (action.type) {
+    case 'field': {
+      return {
+        ...state,
+        [action.fieldName]: action.payload
+      }
+    }
+    case 'clear': {
+      return {
+        initialState
+      }
+    }
+    case 'checkedSama': {
+      return {
+        ...state,
+        checkSama: true,
+        alamatKTP: state.alamat,
+        propinsiKTP: state.propinsi,
+        kotaKTP: state.kota,
+        kecamatanKTP: state.kecamatan,
+        kelurahanKTP: state.kelurahan,
+        rtKTP: state.rt,
+        rwKTP: state.rw,
+        kodePOSKTP: state.kodePOS
+      }
+    }
+    case 'unCheckedSama': {
+      return {
+        ...state,
+        checkSama: false,
+        alamatKTP: '',
+        propinsiKTP: '',
+        kotaKTP: '',
+        kecamatanKTP: '',
+        kelurahanKTP: '',
+        rtKTP: '',
+        rwKTP: '',
+        kodePOSKTP: ''
+      }
+    }
+    case 'propinsiSelect': {
+      return {
+        ...state,
+        checkSama: false,
+        alamatKTP: '',
+        propinsiKTP: '',
+        kotaKTP: '',
+        kecamatanKTP: '',
+        kelurahanKTP: '',
+        rtKTP: '',
+        rwKTP: '',
+        kodePOSKTP: ''
+      }
+    }
+    default:
+      return state
+  }
+}
+
 const Register = props => {
   const backEndMaster = `${API_ROOT}/master`
   const backEndRegister = `${API_ROOT}/registrasi`
-  const { errors, register, handleSubmit } = useForm()
 
   const [state, dispatch] = useReducer(registerReducer, initialState)
   const {
@@ -65,13 +154,62 @@ const Register = props => {
     password
   } = state
 
+  const updateForm = React.useCallback(({ target: { value, name, type } }) => {
+    const updatePath = name.split('.')
+    // console.log('TCL: updatePath', updatePath);
+    // console.log('TCL: updatePath', value);
+
+    // if the input is a checkbox then use callback function to update
+    // the toggle state based on previous state
+    if (type === 'checkbox') {
+      dispatch(prevState => ({
+        [name]: !prevState[name]
+      }))
+
+      return
+    }
+
+    if (type === 'text') {
+      dispatch({
+        type: 'field',
+        fieldName: updatePath,
+        payload: value
+      })
+
+      // return;
+    }
+
+    // if we have to update the root level nodes in the form
+    // if (updatePath.length === 1) {
+    //   const [key] = updatePath;
+
+    //   dispatch({
+    //     [key]: value
+    //   });
+    // }
+
+    // if we have to update nested nodes in the form object
+    // use _path and _value to update them.
+    // if (updatePath.length === 2) {
+    //   dispatch({
+    //     _path: updatePath,
+    //     _value: value
+    //   });
+    // }
+  }, [])
+
+  const { errors, register, handleSubmit } = useForm()
+
   // --------------------------------------- DidMount get Token
   const [tokenRegister] = useHttp(`${backEndRegister}`, '', [])
+
+  // --------------------------------------- Only Number
+  const filterNonDigits = value => (value ? value.replace(/\D+/, '') : '')
 
   // --------------------------------------- P R I B A D I
   const [agamaList] = useHttp(`${backEndMaster}/agama`, '', [])
   // console.log('TCL: ${backEndMaster}/agama', `${backEndMaster}/agama`)
-  // console.log('TCL: agamaList', agamaList)
+  console.log('TCL: agamaList', agamaList)
 
   const [statusNikahList] = useHttp(`${backEndMaster}/marital`, '', [])
 
@@ -84,8 +222,9 @@ const Register = props => {
   const propinsiSelectHandler = e => {
     kecamatanList.length = 0
     KelurahanList.length = 0
+    // setPropinsi(e.target.value);
     dispatch({
-      type: PROPINSI_SELECT,
+      type: 'field',
       fieldName: 'propinsi',
       payload: e.currentTarget.value
     })
@@ -93,25 +232,10 @@ const Register = props => {
 
   const kotaSelectHandler = e => {
     KelurahanList.length = 0
+    // setKota(e.target.value);
     dispatch({
-      type: FIELD,
+      type: 'field',
       fieldName: 'kota',
-      payload: e.currentTarget.value
-    })
-  }
-
-  const kecamatanSelectHandler = e => {
-    dispatch({
-      type: FIELD,
-      fieldName: 'kecamatan',
-      payload: e.currentTarget.value
-    })
-  }
-
-  const kelurahanSelectHandler = e => {
-    dispatch({
-      type: FIELD,
-      fieldName: 'kelurahan',
       payload: e.currentTarget.value
     })
   }
@@ -126,7 +250,7 @@ const Register = props => {
     kecamatanKTPList.length = 0
     KelurahanKTPList.length = 0
     dispatch({
-      type: FIELD,
+      type: 'field',
       fieldName: 'propinsiKTP',
       payload: e.currentTarget.value
     })
@@ -135,7 +259,7 @@ const Register = props => {
   const kotaKTPSelectHandler = e => {
     KelurahanKTPList.length = 0
     dispatch({
-      type: FIELD,
+      type: 'field',
       fieldName: 'kotaKTP',
       payload: e.currentTarget.value
     })
@@ -143,16 +267,8 @@ const Register = props => {
 
   const kecamatanKTPSelectHandler = e => {
     dispatch({
-      type: FIELD,
+      type: 'field',
       fieldName: 'kecamatanKTP',
-      payload: e.currentTarget.value
-    })
-  }
-
-  const kelurahanKTPSelectHandler = e => {
-    dispatch({
-      type: FIELD,
-      fieldName: 'kelurahanKTP',
       payload: e.currentTarget.value
     })
   }
@@ -160,16 +276,16 @@ const Register = props => {
   // --------------------------------------- S A M A
 
   const handleChangeCheck = () => {
-    if (!checkedSama) {
+    if (!state.checkedSama) {
       scroller.scrollTo('myScrollToElement', {
         duration: 1500,
         delay: 57,
         smooth: true,
         offset: -10
       })
-      dispatch({ type: CHECKED })
+      dispatch({ type: 'checkedSama' })
     } else {
-      dispatch({ type: UNCHECKED })
+      dispatch({ type: 'unCheckedSama' })
     }
   }
 
@@ -261,12 +377,14 @@ const Register = props => {
                     name='nama'
                     type='text'
                     value={nama}
-                    change={e =>
-                      dispatch({
-                        type: FIELD,
-                        fieldName: 'nama',
-                        payload: e.target.value
-                      })}
+                    change={updateForm}
+                    // change={e =>
+                    //   dispatch({
+                    //     type: 'field',
+                    //     fieldName: 'nama',
+                    //     payload: e.target.value
+                    //   })
+                    // }
                     placeholder='Nama'
                     innerRef={register({ required: true, minLength: 3 })}
                     error={<ErrorMessage error={errors.nama} />}
@@ -282,12 +400,7 @@ const Register = props => {
                         name='tempatLahir'
                         type='text'
                         value={tempatLahir}
-                        change={e =>
-                          dispatch({
-                            type: FIELD,
-                            fieldName: 'tempatLahir',
-                            payload: e.target.value
-                          })}
+                        change={updateForm}
                         placeholder='Tempat Lahir'
                         innerRef={register({ required: true, minLength: 3 })}
                         error={<ErrorMessage error={errors.tempatLahir} />}
@@ -299,12 +412,7 @@ const Register = props => {
                         name='tanggalLahir'
                         type='date'
                         value={tanggalLahir}
-                        change={e =>
-                          dispatch({
-                            type: FIELD,
-                            fieldName: 'tanggalLahir',
-                            payload: e.target.value
-                          })}
+                        change={updateForm}
                         placeholder='Tanggal Lahir'
                         innerRef={register({ required: true })}
                         error={<ErrorMessage error={errors.tanggalLahir} />}
@@ -319,14 +427,8 @@ const Register = props => {
                         name='nik'
                         type='text'
                         value={nik}
-                        change={e =>
-                          dispatch({
-                            type: INPUT_NUMBER,
-                            fieldName: 'nik',
-                            payload: e.target.value
-                          })}
+                        change={updateForm}
                         placeholder='NIK'
-
                         innerRef={register({
                           required: true,
                           minLength: 16,
@@ -341,12 +443,7 @@ const Register = props => {
                         name='kk'
                         type='text'
                         value={kk}
-                        change={e =>
-                          dispatch({
-                            type: INPUT_NUMBER,
-                            fieldName: 'kk',
-                            payload: e.target.value
-                          })}
+                        change={updateForm}
                         placeholder='No KK'
                         innerRef={register({ required: true })}
                         error={<ErrorMessage error={errors.kk} />}
@@ -361,12 +458,7 @@ const Register = props => {
                         name='hp'
                         type='text'
                         value={hp}
-                        change={e =>
-                          dispatch({
-                            type: INPUT_NUMBER,
-                            fieldName: 'hp',
-                            payload: e.target.value
-                          })}
+                        change={updateForm}
                         placeholder='No HP'
                         innerRef={register({ required: true })}
                         error={<ErrorMessage error={errors.hp} />}
@@ -378,12 +470,7 @@ const Register = props => {
                         name='pekerjaan'
                         type='text'
                         value={pekerjaan}
-                        change={e =>
-                          dispatch({
-                            type: FIELD,
-                            fieldName: 'pekerjaan',
-                            payload: e.target.value
-                          })}
+                        change={updateForm}
                         placeholder='Pekerjaan'
                         feedback='Pekerjaan Harus Di Isi'
                       />
@@ -396,12 +483,7 @@ const Register = props => {
                         icon='fa fa-hand-pointer-o'
                         name='agama'
                         value={agama}
-                        change={e =>
-                          dispatch({
-                            type: FIELD,
-                            fieldName: 'agama',
-                            payload: e.target.value
-                          })}
+                        change={updateForm}
                         innerRef={register({ required: true })}
                         error={<ErrorMessage error={errors.agama} />}
                       >
@@ -420,12 +502,7 @@ const Register = props => {
                         icon='icon-tag'
                         name='statusNikah'
                         value={statusNikah}
-                        change={e =>
-                          dispatch({
-                            type: FIELD,
-                            fieldName: 'statusNikah',
-                            payload: e.target.value
-                          })}
+                        change={updateForm}
                         placeholder='Pilih Agama'
                         innerRef={register({ required: true })}
                         error={<ErrorMessage error={errors.statusNikah} />}
@@ -454,12 +531,7 @@ const Register = props => {
                     name='alamat'
                     type='text'
                     value={alamat}
-                    change={e =>
-                      dispatch({
-                        type: FIELD,
-                        fieldName: 'alamat',
-                        payload: e.target.value
-                      })}
+                    change={updateForm}
                     placeholder='Alamat'
                     innerRef={register({ required: true, minLength: 10 })}
                     error={<ErrorMessage error={errors.alamat} />}
@@ -513,7 +585,12 @@ const Register = props => {
                         icon='fa fa-map-pin'
                         name='kecamatan'
                         value={kecamatan}
-                        change={kecamatanSelectHandler}
+                        change={e =>
+                          dispatch({
+                            type: 'field',
+                            fieldName: 'kecamatan',
+                            payload: e.currentTarget.value
+                          })}
                         placeholder='Kecamatan'
                         innerRef={register({ required: true })}
                         error={<ErrorMessage error={errors.kecamatan} />}
@@ -533,7 +610,7 @@ const Register = props => {
                         icon='fa fa-map-pin'
                         name='kelurahan'
                         value={kelurahan}
-                        change={kelurahanSelectHandler}
+                        change={updateForm}
                         placeholder='Kelurahan'
                         innerRef={register({ required: true })}
                         error={<ErrorMessage error={errors.kelurahan} />}
@@ -559,12 +636,7 @@ const Register = props => {
                             name='rt'
                             type='text'
                             value={rt}
-                            change={e =>
-                              dispatch({
-                                type: INPUT_NUMBER,
-                                fieldName: 'rt',
-                                payload: e.target.value
-                              })}
+                            change={updateForm}
                             placeholder='RT'
                             innerRef={register({ required: true })}
                             error={<ErrorMessage error={errors.rt} />}
@@ -576,12 +648,7 @@ const Register = props => {
                             name='rw'
                             type='text'
                             value={rw}
-                            change={e =>
-                              dispatch({
-                                type: INPUT_NUMBER,
-                                fieldName: 'rw',
-                                payload: e.target.value
-                              })}
+                            change={updateForm}
                             placeholder='RW'
                             innerRef={register({ required: true })}
                             error={<ErrorMessage error={errors.rw} />}
@@ -595,12 +662,7 @@ const Register = props => {
                         name='kodePOS'
                         type='text'
                         value={kodePOS}
-                        change={e =>
-                          dispatch({
-                            type: INPUT_NUMBER,
-                            fieldName: 'kodePOS',
-                            payload: e.target.value
-                          })}
+                        change={updateForm}
                         placeholder='Kode POS'
                         innerRef={register({
                           required: true,
@@ -623,8 +685,8 @@ const Register = props => {
                     <Col>
 
                       <div className='ks-cboxtags'>
-                        <input type='checkbox' id='checkbox' value={checkedSama} onChange={handleChangeCheck} />
-                        <label htmlFor='checkbox'>Sama Seperti Diatas</label>
+                        <input type='checkbox' id='checkbox' onChange={handleChangeCheck} />
+                        <label for='checkbox'>Sama Seperti Diatas</label>
                       </div>
                     </Col>
                   </Row>
@@ -635,12 +697,7 @@ const Register = props => {
                     name='alamatKTP'
                     type='text'
                     value={alamatKTP}
-                    change={e =>
-                      dispatch({
-                        type: FIELD,
-                        fieldName: 'alamatKTP',
-                        payload: e.target.value
-                      })}
+                    change={updateForm}
                     placeholder='Alamat'
                     innerRef={register({ required: true, minLength: 10 })}
                     error={<ErrorMessage error={errors.alamatKTP} />}
@@ -714,7 +771,7 @@ const Register = props => {
                         icon='fa fa-map-pin'
                         name='kelurahanKTP'
                         value={kelurahanKTP}
-                        change={kelurahanKTPSelectHandler}
+                        change={updateForm}
                         placeholder='Kelurahan'
                         innerRef={register({ required: true })}
                         error={<ErrorMessage error={errors.kelurahanKTP} />}
@@ -740,13 +797,7 @@ const Register = props => {
                             name='rtKTP'
                             type='text'
                             value={rtKTP}
-                            change={e =>
-                              dispatch({
-                                type: INPUT_NUMBER,
-                                fieldName: 'rtKTP',
-                                payload: e.target.value
-                              })}
-
+                            change={updateForm}
                             placeholder='RT'
                             innerRef={register({ required: true })}
                             error={<ErrorMessage error={errors.rtKTP} />}
@@ -758,12 +809,7 @@ const Register = props => {
                             name='rwKTP'
                             type='text'
                             value={rwKTP}
-                            change={e =>
-                              dispatch({
-                                type: INPUT_NUMBER,
-                                fieldName: 'rwKTP',
-                                payload: e.target.value
-                              })}
+                            change={updateForm}
                             placeholder='RW'
                             innerRef={register({ required: true })}
                             error={<ErrorMessage error={errors.rwKTP} />}
@@ -777,12 +823,7 @@ const Register = props => {
                         name='kodePOSKTP'
                         type='text'
                         value={kodePOSKTP}
-                        change={e =>
-                          dispatch({
-                            type: INPUT_NUMBER,
-                            fieldName: 'kodePOSKTP',
-                            payload: e.target.value
-                          })}
+                        change={updateForm}
                         placeholder='Kode POS'
                         innerRef={register({
                           required: true,
@@ -804,12 +845,7 @@ const Register = props => {
                     name='email'
                     type='text'
                     value={email}
-                    change={e =>
-                      dispatch({
-                        type: FIELD,
-                        fieldName: 'email',
-                        payload: e.target.value
-                      })}
+                    change={updateForm}
                     placeholder='email'
                     innerRef={register({
                       required: true,
@@ -821,18 +857,24 @@ const Register = props => {
                     icon='icon-lock'
                     name='password'
                     value={password}
-                    change={e =>
-                      dispatch({
-                        type: FIELD,
-                        fieldName: 'password',
-                        payload: e.target.value
-                      })}
+                    change={updateForm}
                     placeholder='Password'
                     innerRef={register({
                       required: true
                     })}
                     error={<ErrorMessage error={errors.password} />}
                   />
+                  {/* <InputanPassword
+                    icon="icon-lock"
+                    name="confirmPassword"
+                    value={confirmPassword}
+                    change={e => setconfirmPassword(e.target.value)}
+                    placeholder="Tulis Ulang Password"
+                    innerRef={register({
+                      required: true
+                    })}
+                    error={<ErrorMessage error={errors.confirmPassword} />}
+                  /> */}
 
                   <Button color='success' block size='lg'>
                     Create Account

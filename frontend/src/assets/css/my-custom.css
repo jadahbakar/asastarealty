@@ -3,6 +3,11 @@
 nucleo-icons Web Font - built using nucleoapp.com
 License - nucleoapp.com/license/
 --> nucleo for icons <--
+
+custom-xxx  -> untuk menunjuk tag elemen ( <custom-xxx> )
+.custom-xxx -> untuk menunjuk Class ( className )
+#custom-xxx -> untuk menujuk ID
+
 -------------------------------- */
 @font-face {
   font-family: 'nucleo-icons';
@@ -2004,14 +2009,14 @@ button {
 
 
  /* ----------------------------------------- anchor */
- a {
+.custom-link {
   position: relative;
   display: inline-block;
   transition: .3s;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
-a::after {
+.custom-link::after {
   position: absolute;
   bottom: .3em;
   left: 0;
@@ -2022,11 +2027,11 @@ a::after {
   opacity: 0;
   transition: .3s ;
 }
-a:hover {
+.custom-link:hover {
   color: blue;
   cursor: pointer
 }
-a:hover::after {
+.custom-link:hover::after {
   bottom: 0;
   opacity: 1;
 }

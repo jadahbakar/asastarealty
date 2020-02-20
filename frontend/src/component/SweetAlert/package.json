@@ -1,6 +1,0 @@
-{
-  "name": "SweetAlert",
-  "version": "0.1.0",
-  "private": true,
-  "main": "./SweetAlert.js"
-}

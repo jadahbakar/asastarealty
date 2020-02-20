@@ -23,7 +23,7 @@ const getAsync = promisify(clientRedis.get).bind(clientRedis)
 
 function decrypt (transitmessage, pass) {
   var keySize = 256
-  // var ivSize = 128
+  var ivSize = 128
   var iterations = 100
   var salt = CryptoJS.enc.Hex.parse(transitmessage.substr(0, 32))
   var iv = CryptoJS.enc.Hex.parse(transitmessage.substr(32, 32))
@@ -38,6 +38,7 @@ function decrypt (transitmessage, pass) {
     iv: iv,
     padding: CryptoJS.pad.Pkcs7,
     mode: CryptoJS.mode.CBC
+
   })
   return decrypted
 }
@@ -49,6 +50,8 @@ function decrypt (transitmessage, pass) {
 const postLogin = asyncro.asyncHandler(async (request, response, next) => {
   // ---ambil nilai dari body
   const { userid, userpass } = request.body
+  // console.log('TCL: userid', userid)
+  // console.log('TCL: request.body', request.body)
   // ---ambil nilai token dari reactjs / client
   const token =
     request.body.token || request.query.token || request.headers.authorization // mengambil token di antara request
@@ -95,6 +98,7 @@ const postLogin = asyncro.asyncHandler(async (request, response, next) => {
             'SELECT sec.userid_login($(userid), $(stringPass))',
             { userid, stringPass }
           )
+          console.log('TCL: getUser', getUser)
 
           // ---Check respon dari DB
           if (getUser === null) {
