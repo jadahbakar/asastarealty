@@ -123,11 +123,11 @@ const postRegistrasi = asyncro.asyncHandler(async (request, response, next) => {
           const awal = regNama.replace(regexSpace, '').slice(0, 7)
           const obj = JSON.parse(regPribadi)
           const tgl = obj.tanggalLahir.replace(regexMinus, '').slice(2, 8)
-          const idUser = awal + tgl
+          const idUser = awal.toLowerCase() + tgl
           const namaUser = regNama.toUpperCase()
           // Save To DB
           const procReg = await db.any(
-            `INSERT INTO mst.registrasi(reg_id, reg_nama, reg_pribadi, reg_alamat, reg_alamat_ktp, reg_email, reg_password) 
+            `INSERT INTO mst.registrasi(reg_id, reg_nama, reg_pribadi, reg_alamat, reg_alamat_ktp, reg_email, reg_password)
                         VALUES ( $(idUser), $(namaUser), $(regPribadi), $(regAlamat), $(regAlamatKtp), $(regEmail), $(regPassword)) RETURNING  reg_id`,
             {
               idUser,
@@ -144,6 +144,27 @@ const postRegistrasi = asyncro.asyncHandler(async (request, response, next) => {
           } catch (error) {
             return response.status(400).send(error)
           }
+          // const procReg = await db.any(
+          //   'SELECT mst.registrasi_w($(idUser), $(namaUser), $(regPribadi), $(regAlamat), $(regAlamatKtp), $(regEmail), $(regPassword)) AS status',
+          //   {
+          //     idUser,
+          //     namaUser,
+          //     regPribadi,
+          //     regAlamat,
+          //     regAlamatKtp,
+          //     regEmail,
+          //     regPassword
+          //   }
+          // )
+          // try {
+          //   if (procReg !== 'error') {
+          //     return response.status(201).send(procReg[0].status)
+          //   } else {
+          //     return response.status(400).send(procReg)
+          //   }
+          // } catch (error) {
+          //   return response.status(400).send(error)
+          // }
         } else {
           pesan = 'invalid Token'
           response.status(401).json({ message: pesan })

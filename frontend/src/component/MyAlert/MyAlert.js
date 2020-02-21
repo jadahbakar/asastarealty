@@ -2,11 +2,12 @@ import Swal from 'sweetalert2'
 
 import packageJson from '../../../package.json'
 
-const MyAlert = (type, title, text, timer, func) => {
+const MyAlert = (icon, title, html, timer, func) => {
   Swal.fire({
-    type,
+    icon,
     title,
-    text,
+    // text,
+    html,
     timer,
     footer: packageJson.description
   }).then(result => {

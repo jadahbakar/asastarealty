@@ -2,8 +2,6 @@
 const CryptoJS = require('crypto-js')
 
 const encrypt = (msg, pass) => {
-  console.log('TCL: encrypt -> msg', msg)
-
   const keySize = 256
   const iterations = 100
   const salt = CryptoJS.lib.WordArray.random(128 / 8)

@@ -67,25 +67,23 @@ const Register = props => {
 
   // --------------------------------------- DidMount get Token
   const [tokenRegister] = useHttp(`${backEndRegister}`, '', [])
+  console.log('TCL: backEndRegister', backEndRegister)
 
-  // --------------------------------------- P R I B A D I
+  // --------------------------------------- PRIBADI
   const [agamaList] = useHttp(`${backEndMaster}/agama`, '', [])
-  // console.log('TCL: ${backEndMaster}/agama', `${backEndMaster}/agama`)
-  // console.log('TCL: agamaList', agamaList)
-
   const [statusNikahList] = useHttp(`${backEndMaster}/marital`, '', [])
 
-  // --------------------------------------- T E M P A T   T I N G G A L
+  // --------------------------------------- TEMPAT TINGGAL
   const [propinsiList] = useHttp(`${backEndMaster}/propinsi`, '', [])
-  const [kotaList] = useHttp(`${backEndMaster}/kota/${state.propinsi}`, '', [propinsi])
-  const [kecamatanList] = useHttp(`${backEndMaster}/kecamatan/${state.kota}`, '', [kota])
-  const [KelurahanList] = useHttp(`${backEndMaster}/kelurahan/${state.kecamatan}`, '', [kecamatan])
+  const [kotaList] = useHttp(`${backEndMaster}/kota/${propinsi}`, '', [propinsi])
+  const [kecamatanList] = useHttp(`${backEndMaster}/kecamatan/${kota}`, '', [kota])
+  const [KelurahanList] = useHttp(`${backEndMaster}/kelurahan/${kecamatan}`, '', [kecamatan])
 
   const propinsiSelectHandler = e => {
     kecamatanList.length = 0
     KelurahanList.length = 0
     dispatch({
-      type: PROPINSI_SELECT,
+      type: FIELD,
       fieldName: 'propinsi',
       payload: e.currentTarget.value
     })
@@ -116,7 +114,7 @@ const Register = props => {
     })
   }
 
-  // --------------------------------------- K T P
+  // --------------------------------------- KTP
   const [propinsiKTPList] = useHttp(`${backEndMaster}/propinsi`, '', [])
   const [kotaKTPList] = useHttp(`${backEndMaster}/kota/${propinsiKTP}`, '', [propinsiKTP])
   const [kecamatanKTPList] = useHttp(`${backEndMaster}/kecamatan/${kotaKTP}`, '', [kotaKTP])
@@ -157,7 +155,7 @@ const Register = props => {
     })
   }
 
-  // --------------------------------------- S A M A
+  // --------------------------------------- SAMA
 
   const handleChangeCheck = () => {
     if (!checkedSama) {
@@ -173,14 +171,14 @@ const Register = props => {
     }
   }
 
-  // --------------------------------------- A L E R T
+  // --------------------------------------- ALERT
 
   const hideAlert = () => {
     dispatch({ type: 'clear' })
     props.history.push('/')
   }
 
-  // --------------------------------------- S U B M I T
+  // --------------------------------------- SUBMIT
   const cleanIt = string => {
     const regexUnderscore = new RegExp('_', 'g') // indicates global match
     const regexHash = new RegExp(' ', 'g')
@@ -221,6 +219,7 @@ const Register = props => {
       kodePOSKTP
     }
 
+    console.log('TCL: tokenRegister.token', tokenRegister)
     axios.defaults.headers.common.Authorization = tokenRegister.token
     axios
       .post(`${backEndRegister}`, {
@@ -232,14 +231,14 @@ const Register = props => {
         regPassword: hashString
       })
       .then(response => {
-        MyAlert('success', 'Success', `UserId Anda : ${response.data}`, 2000, hideAlert)
+        MyAlert('success', 'Success', `UserId Anda : <font size: "15px" color:"#17171f"> ${response.data[0].reg_id} </font>`, 10000, hideAlert)
       })
       .catch(error => {
-        let keterangan = error.response.data
+        let keterangan = error
         if (error.response.data.includes('duplicate')) {
           keterangan = 'Data Sudah Ada'
         }
-        MyAlert('error', 'Gagal Menyimpan', keterangan, 2000, hideAlert)
+        MyAlert('error', 'Gagal Menyimpan', keterangan, 50000, hideAlert)
       })
   }
 
@@ -442,7 +441,7 @@ const Register = props => {
                     </Col>
                   </Row>
 
-                  {/* ----------------------------------- T E M P A T   T I N G G A L ----------------------------------- */}
+                  {/* ----------------------------------- TEMPAT TINGGAL ----------------------------------- */}
 
                   <Label htmlFor='prependedInput' className='register-label-header' name='myScrollToElement'>
                     Tempat Tinggal
@@ -612,7 +611,7 @@ const Register = props => {
                     </Col>
                   </Row>
 
-                  {/* ----------------------------------- K T P ----------------------------------- */}
+                  {/* ----------------------------------- KTP ----------------------------------- */}
 
                   <Row>
                     <Col>
@@ -794,7 +793,7 @@ const Register = props => {
                     </Col>
                   </Row>
 
-                  {/* ----------------------------------- P R I V A S I ----------------------------------- */}
+                  {/* ----------------------------------- PRIVASI ----------------------------------- */}
                   <Label htmlFor='prependedInput' className='register-label-header'>
                     Privasi
                   </Label>

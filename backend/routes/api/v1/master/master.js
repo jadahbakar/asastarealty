@@ -24,7 +24,6 @@ const getMarital = async (request, response, next) => {
 
 const getPropinsi = async (request, response, next) => {
   const propinsi = await db.any('SELECT mst.propinsi_get()')
-  console.log(propinsi)
   try {
     response.send(propinsi[0].propinsi_get)
   } catch (error) {

@@ -139,11 +139,8 @@ const LeftCard = () => {
 }
 
 const RightCard = () => {
-  // const { RightCard } = styles
   const content = (
-    <Card
-      className='RightCard'
-    >
+    <Card className='RightCard'>
       <CardBody>
         <div>
           {/* <LogoSVG width={260} height={250} viewBox='-10 0 400 370' /> */}
