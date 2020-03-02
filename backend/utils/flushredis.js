@@ -1,6 +1,6 @@
 // // index.js
 var redis = require('redis')
-var client = redis.createClient()
+var client = redis.createClient(config.redis_port, config.redis_host)
 client.on('error', function (err) {
   console.log(err)
 })

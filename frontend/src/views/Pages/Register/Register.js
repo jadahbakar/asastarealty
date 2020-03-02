@@ -7,7 +7,7 @@ import axios from 'axios'
 import { API_ROOT } from 'api'
 import { useForm } from 'react-hook-form'
 import ErrorMessage from './errorMessage'
-import { encrypt } from 'utils/encrypt'
+import { encrypt } from 'utils'
 import styles from './register.css'
 import { scroller } from 'react-scroll'
 import registerReducer, { initialState, FIELD, CLEAR, CHECKED, UNCHECKED, PROPINSI_SELECT, INPUT_NUMBER } from './Register.reducer'
@@ -218,8 +218,6 @@ const Register = props => {
       rwKTP,
       kodePOSKTP
     }
-
-    console.log('TCL: tokenRegister.token', tokenRegister)
     axios.defaults.headers.common.Authorization = tokenRegister.token
     axios
       .post(`${backEndRegister}`, {
@@ -231,14 +229,15 @@ const Register = props => {
         regPassword: hashString
       })
       .then(response => {
-        MyAlert('success', 'Success', `UserId Anda : <font size: "15px" color:"#17171f"> ${response.data[0].reg_id} </font>`, 10000, hideAlert)
+        // console.log('TCL: response ->', response)
+        if (response.data.status === 'success') {
+          MyAlert('success', 'Success', `UserId Anda : <font size: "15px" color:"#17171f"> ${response.data.message} </font>`, 10000, hideAlert)
+        } else {
+          MyAlert('error', 'Gagal Simpan Data', `<font size: "15px" color:"#17171f"> ${response.data.message} </font>`, 10000, hideAlert)
+        }
       })
       .catch(error => {
-        let keterangan = error
-        if (error.response.data.includes('duplicate')) {
-          keterangan = 'Data Sudah Ada'
-        }
-        MyAlert('error', 'Gagal Menyimpan', keterangan, 50000, hideAlert)
+        MyAlert('error', 'Gagal Menyimpan', error, 50000, hideAlert)
       })
   }
 

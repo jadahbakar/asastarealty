@@ -19,7 +19,7 @@ const locationkeyPublic = path.join(appRoot.path, '/key/ecdsa_public_key.pem')
 // var keySecret = fs.readFileSync(locationKeySecret, 'utf8')
 var keyPublic = fs.readFileSync(locationkeyPublic, 'utf8')
 var redis = require('redis')
-var clientRedis = redis.createClient()
+var clientRedis = redis.createClient(config.redis_port, config.redis_host)
 const { promisify } = require('util')
 const getAsync = promisify(clientRedis.get).bind(clientRedis)
 
@@ -124,28 +124,12 @@ const postRegistrasi = asyncro.asyncHandler(async (request, response, next) => {
           const obj = JSON.parse(regPribadi)
           const tgl = obj.tanggalLahir.replace(regexMinus, '').slice(2, 8)
           const idUser = awal.toLowerCase() + tgl
+
           const namaUser = regNama.toUpperCase()
           // Save To DB
-          const procReg = await db.any(
-            `INSERT INTO mst.registrasi(reg_id, reg_nama, reg_pribadi, reg_alamat, reg_alamat_ktp, reg_email, reg_password)
-                        VALUES ( $(idUser), $(namaUser), $(regPribadi), $(regAlamat), $(regAlamatKtp), $(regEmail), $(regPassword)) RETURNING  reg_id`,
-            {
-              idUser,
-              namaUser,
-              regPribadi,
-              regAlamat,
-              regAlamatKtp,
-              regEmail,
-              regPassword
-            }
-          )
-          try {
-            return response.status(201).send(procReg)
-          } catch (error) {
-            return response.status(400).send(error)
-          }
           // const procReg = await db.any(
-          //   'SELECT mst.registrasi_w($(idUser), $(namaUser), $(regPribadi), $(regAlamat), $(regAlamatKtp), $(regEmail), $(regPassword)) AS status',
+          //   `INSERT INTO mst.registrasi(reg_id, reg_nama, reg_pribadi, reg_alamat, reg_alamat_ktp, reg_email, reg_password)
+          //               VALUES ( $(idUser), $(namaUser), $(regPribadi), $(regAlamat), $(regAlamatKtp), $(regEmail), $(regPassword)) RETURNING  reg_id`,
           //   {
           //     idUser,
           //     namaUser,
@@ -157,14 +141,32 @@ const postRegistrasi = asyncro.asyncHandler(async (request, response, next) => {
           //   }
           // )
           // try {
-          //   if (procReg !== 'error') {
-          //     return response.status(201).send(procReg[0].status)
-          //   } else {
-          //     return response.status(400).send(procReg)
-          //   }
+          //   return response.status(201).send(procReg)
           // } catch (error) {
           //   return response.status(400).send(error)
           // }
+          const procReg = await db.one(
+            'SELECT mst.registrasi_w($(idUser), $(namaUser), $(regPribadi), $(regAlamat), $(regAlamatKtp), $(regEmail), $(regPassword)) AS resutFunc',
+            {
+              idUser,
+              namaUser,
+              regPribadi,
+              regAlamat,
+              regAlamatKtp,
+              regEmail,
+              regPassword
+            }
+          )
+          try {
+            if (JSON.parse(procReg.resutFunc).status !== 'error') {
+            //   console.log('TCL: JSON.parse(procReg.status)', JSON.parse(procReg.resutFunc  ))
+              return response.status(201).send(JSON.parse(procReg.resutFunc))
+            } else {
+              return response.status(201).send(JSON.parse(procReg.resutFunc))
+            }
+          } catch (error) {
+            return response.status(400).send(error)
+          }
         } else {
           pesan = 'invalid Token'
           response.status(401).json({ message: pesan })
@@ -203,7 +205,6 @@ const postRegistrasiDetail = async (request, response, next) => {
     'SELECT mst.registrasi_to_user_customer($(regID), $(regReferal), $(regApprove)) AS status',
     { regID, regReferal, regApprove }
   )
-  // console.log('TCL: postRegistrasiDetail -> procReg', JSON.parse(procReg[0].status))
   try {
     if (procReg !== 'error') {
       return response.status(201).send(procReg[0].status)

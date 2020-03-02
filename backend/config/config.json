@@ -25,7 +25,7 @@
         "init_company":"asastarealty",
         "app_desc": "Backend for Asastarealty",
         "app_port": 7997,
-        "db_host": "localhost",
+        "db_host": "158.140.166.213",
         "db_port": "5116",
         "db_name": "asastarealty",
         "db_user": "teknotama",

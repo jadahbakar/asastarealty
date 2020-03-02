@@ -1,0 +1,6 @@
+{
+  "name": "getPackageJson",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./getPackageJson.js"
+}

@@ -23,4 +23,4 @@ const encrypt = (msg, pass) => {
   return transitmessage
 }
 
-export { encrypt }
+export default encrypt

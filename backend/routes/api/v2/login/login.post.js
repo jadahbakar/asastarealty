@@ -16,7 +16,7 @@ const locationkeyPublic = path.join(appRoot.path, '/key/ecdsa_public_key.pem')
 // var keySecret = fs.readFileSync(locationKeySecret, 'utf8')
 var keyPublic = fs.readFileSync(locationkeyPublic, 'utf8')
 var redis = require('redis')
-var clientRedis = redis.createClient()
+var clientRedis = redis.createClient(config.redis_port, config.redis_host)
 const { promisify } = require('util')
 const getAsync = promisify(clientRedis.get).bind(clientRedis)
 

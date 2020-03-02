@@ -17,7 +17,7 @@ const config = require('@root/config/config.js')
 // var keySecret = fs.readFileSync(locationKeySecret, 'utf8')
 const keyPublic = fs.readFileSync(locationkeyPublic, 'utf8')
 const redis = require('redis')
-const clientRedis = redis.createClient()
+const clientRedis = redis.createClient(config.redis_port, config.redis_host)
 const { promisify } = require('util')
 const getAsync = promisify(clientRedis.get).bind(clientRedis)
 
@@ -98,7 +98,7 @@ const postLogin = asyncro.asyncHandler(async (request, response, next) => {
             'SELECT sec.userid_login($(userid), $(stringPass))',
             { userid, stringPass }
           )
-          console.log('TCL: getUser', getUser)
+          // console.log('TCL: getUser', getUser)
 
           // ---Check respon dari DB
           if (getUser === null) {

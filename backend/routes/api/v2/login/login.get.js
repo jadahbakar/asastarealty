@@ -8,7 +8,7 @@ const config = require('@root/config/config')
 // const config = require('../config/config.js')
 
 var redis = require('redis')
-var clientRedis = redis.createClient()
+var clientRedis = redis.createClient(config.redis_port, config.redis_host)
 
 // function decrypt (transitmessage, pass) {
 //   var keySize = 256

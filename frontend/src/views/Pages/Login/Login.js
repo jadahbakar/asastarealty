@@ -8,8 +8,9 @@ import { useForm } from 'react-hook-form'
 
 import { API_ROOT } from 'api'
 import ErrorMessage from './errorMessage'
-import packageJson from '../../../../package.json'
-import { encrypt } from 'utils/encrypt'
+// import packageJson from '../../../../package.json'
+import { encrypt, getPackageJson } from 'utils'
+
 import styles from './login.css'
 const backEndLogin = `${API_ROOT}/login`
 
@@ -77,6 +78,8 @@ const LeftCard = () => {
         }
       })
       .catch(error => {
+        console.log('TCL: LeftCard -> error', error)
+
         MyAlert('warning', 'Maaf Terdapat Kegagalan', `[${error.response.status}] ${error.response.data.message}`, 2000, hideAlert)
       })
   }
@@ -153,10 +156,9 @@ const RightCard = () => {
 }
 
 const BottomTitle = () => {
-  const { BottomPaddingTop, BottomFont } = styles
   const content = (
-    <div className={`text-center ${BottomPaddingTop}`}>
-      <font className={`${BottomFont}`}>© {packageJson.description} [2019]</font>
+    <div className='text-center BottomPaddingTop'>
+      <font className='BottomFont'>© {getPackageJson.description} [ 2019 ]</font>
     </div>
   )
   return content

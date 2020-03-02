@@ -3,7 +3,7 @@ var auth = require('../authentication')
 const config = require('@root/config/config.js')
 
 var redis = require('redis')
-var clientRedis = redis.createClient()
+var clientRedis = redis.createClient(config.redis_port, config.redis_host)
 
 async function createRedis (token) {
   clientRedis.set(token, token)
