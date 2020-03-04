@@ -1,5 +1,5 @@
-import { API_ROOT } from 'api'
-import axios from 'axios'
+// import { API_ROOT } from 'api'
+// import axios from 'axios's
 
 export const CHECKED = 'CHECKED'
 export const UNCHECKED = 'UNCHECKED'
@@ -8,26 +8,54 @@ export const PROPINSI_SELECT = 'PROPINSI_SELECT'
 export const FIELD = 'FIELD'
 export const CLEAR = 'CLEAR'
 export const INPUT_NUMBER = 'INPUT_NUMBER'
-const backEndMaster = `${API_ROOT}/master`
+// const backEndMaster = `${API_ROOT}/master`
 
 export const initialState = {
-  nama: 'test',
-  tempatLahir: 'semarang',
-  tanggalLahir: '2014-04-19',
-  nik: '3374033012810001',
-  kk: '3374033012810001',
-  agama: '1',
-  hp: '0819992981881',
-  pekerjaan: 'Wirausaha',
-  statusNikah: '1',
-  alamat: 'Semarang Timur',
-  propinsi: '33',
-  kota: '3374',
-  kecamatan: '3374080',
-  kelurahan: '3374080006',
-  rt: '08',
-  rw: '07',
-  kodePOS: '50198',
+  // nama: 'test',
+  // tempatLahir: 'semarang',
+  // tanggalLahir: '2014-04-19',
+  // nik: '3374033012810001',
+  // kk: '3374033012810001',
+  // agama: '1',
+  // hp: '0819992981881',
+  // pekerjaan: 'Wirausaha',
+  // statusNikah: '1',
+  // alamat: 'Semarang Timur',
+  // propinsi: '33',
+  // kota: '3374',
+  // kecamatan: '3374080',
+  // kelurahan: '3374080006',
+  // rt: '08',
+  // rw: '07',
+  // kodePOS: '50198',
+  // alamatKTP: '',
+  // propinsiKTP: '',
+  // kotaKTP: '',
+  // kecamatanKTP: '',
+  // kelurahanKTP: '',
+  // rtKTP: '',
+  // rwKTP: '',
+  // kodePOSKTP: '',
+  // checkedSama: false,
+  // email: 'dedy@gmail.com',
+  // password: 'asdfghjkl'
+  nama: '',
+  tempatLahir: '',
+  tanggalLahir: '',
+  nik: '',
+  kk: '',
+  agama: '',
+  hp: '',
+  pekerjaan: '',
+  statusNikah: '',
+  alamat: '',
+  propinsi: '',
+  kota: '',
+  kecamatan: '',
+  kelurahan: '',
+  rt: '',
+  rw: '',
+  kodePOS: '',
   alamatKTP: '',
   propinsiKTP: '',
   kotaKTP: '',
@@ -37,8 +65,8 @@ export const initialState = {
   rwKTP: '',
   kodePOSKTP: '',
   checkedSama: false,
-  email: 'dedy@gmail.com',
-  password: 'asdfghjkl'
+  email: '',
+  password: ''
 }
 
 // --------------------------------------- Only Number

@@ -61,7 +61,7 @@
     "react-test-renderer": "^16.12.0",
     "react-text-mask-hoc": "^0.11.0",
     "react-toastify": "^5.4.0",
-    "reactstrap": "^8.2.0",
+    "reactstrap": "^8.4.1",
     "simple-line-icons": "^2.4.1",
     "spinkit": "^2.0.0",
     "styled-components": "^5.0.1",

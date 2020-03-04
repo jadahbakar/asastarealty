@@ -66,18 +66,26 @@ const Register = props => {
   } = state
 
   // --------------------------------------- DidMount get Token
-  const [tokenRegister] = useHttp(`${backEndRegister}`, '', [])
-  console.log('TCL: backEndRegister', backEndRegister)
+  const [tokenRegister] = useHttp(`${backEndRegister}`, '', '')
+  // console.log('TCL: backEndRegister', tokenRegister)
 
   // --------------------------------------- PRIBADI
-  const [agamaList] = useHttp(`${backEndMaster}/agama`, '', [])
-  const [statusNikahList] = useHttp(`${backEndMaster}/marital`, '', [])
+  const [agamaList] = useHttp(`${backEndMaster}/agama`, '', '')
+  // const [statusNikahList] = useHttp(`${backEndMaster}/marital`, '', [])
 
   // --------------------------------------- TEMPAT TINGGAL
-  const [propinsiList] = useHttp(`${backEndMaster}/propinsi`, '', [])
-  const [kotaList] = useHttp(`${backEndMaster}/kota/${propinsi}`, '', [propinsi])
-  const [kecamatanList] = useHttp(`${backEndMaster}/kecamatan/${kota}`, '', [kota])
-  const [KelurahanList] = useHttp(`${backEndMaster}/kelurahan/${kecamatan}`, '', [kecamatan])
+  const [propinsiList] = useHttp(`${backEndMaster}/propinsi`, '', '')
+  const [kotaList] = useHttp(`${backEndMaster}/kota/${propinsi}`, '', propinsi)
+  // const [kecamatanList] = useHttp(`${backEndMaster}/kecamatan/${kota}`, '', [kota])
+  // const [KelurahanList] = useHttp(`${backEndMaster}/kelurahan/${kecamatan}`, '', [kecamatan])
+
+  // const tokenRegister = []
+  // const agamaList = []
+  const statusNikahList = []
+  // const propinsiList = []
+  // const kotaList = []
+  const kecamatanList = []
+  const KelurahanList = []
 
   const propinsiSelectHandler = e => {
     kecamatanList.length = 0
@@ -115,10 +123,15 @@ const Register = props => {
   }
 
   // --------------------------------------- KTP
-  const [propinsiKTPList] = useHttp(`${backEndMaster}/propinsi`, '', [])
-  const [kotaKTPList] = useHttp(`${backEndMaster}/kota/${propinsiKTP}`, '', [propinsiKTP])
-  const [kecamatanKTPList] = useHttp(`${backEndMaster}/kecamatan/${kotaKTP}`, '', [kotaKTP])
-  const [KelurahanKTPList] = useHttp(`${backEndMaster}/kelurahan/${kecamatanKTP}`, '', [kecamatanKTP])
+  // const [propinsiKTPList] = useHttp(`${backEndMaster}/propinsi`, '', [])
+  // const [kotaKTPList] = useHttp(`${backEndMaster}/kota/${propinsiKTP}`, '', [propinsiKTP])
+  // const [kecamatanKTPList] = useHttp(`${backEndMaster}/kecamatan/${kotaKTP}`, '', [kotaKTP])
+  // const [KelurahanKTPList] = useHttp(`${backEndMaster}/kelurahan/${kecamatanKTP}`, '', [kecamatanKTP])
+
+  const propinsiKTPList = []
+  const kotaKTPList = []
+  const kecamatanKTPList = []
+  const KelurahanKTPList = []
 
   const propinsiKTPSelectHandler = e => {
     kecamatanKTPList.length = 0

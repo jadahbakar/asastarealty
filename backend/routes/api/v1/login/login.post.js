@@ -71,6 +71,7 @@ const postLogin = asyncro.asyncHandler(async (request, response, next) => {
   let pesan
   const checkRedis = await getAsync(token)
   // ---pengecekan apakah token ada di Redis
+
   if (checkRedis === null) {
     pesan = 'r-Invalid Source'
     response.status(401).json({ message: pesan })
@@ -98,7 +99,6 @@ const postLogin = asyncro.asyncHandler(async (request, response, next) => {
             'SELECT sec.userid_login($(userid), $(stringPass))',
             { userid, stringPass }
           )
-          // console.log('TCL: getUser', getUser)
 
           // ---Check respon dari DB
           if (getUser === null) {

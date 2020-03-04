@@ -13,7 +13,7 @@ const useHttp = (url, token, deps) => {
       setFetchedData(result.data)
     }
     fetchData()
-  }, deps)
+  }, [deps])
 
   return [fetchedData]
 }
