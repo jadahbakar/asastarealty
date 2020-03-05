@@ -1,5 +1,5 @@
 /* global sessionStorage */
-import React, { Suspense, useState, useEffect } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { Container } from 'reactstrap'
 import axios from 'axios'
@@ -41,8 +41,9 @@ const loading = () => (
 )
 
 const DefaultLayout = props => {
-  const [redirect, setRedirect] = useState(false)
-  const [alert, setAlert] = useState(null)
+  const redirect = false
+  // const [redirect, setRedirect] = useState(false)
+  // const [alert, setAlert] = useState(null)
 
   // --------------------------------------- M E N U
   let navigationx
@@ -131,6 +132,7 @@ const DefaultLayout = props => {
           onConfirmAlert()
         }
       })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const content = (
