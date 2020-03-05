@@ -69,7 +69,7 @@ const Register = props => {
   const [tokenRegister] = useHttp(`${backEndRegister}`, '', [])
 
   // --------------------------------------- PRIBADI
-  const [agamaList] = useHttp(`${backEndMaster}/agama`, '', '')
+  const [agamaList] = useHttp(`${backEndMaster}/agama`, '', [])
   const [statusNikahList] = useHttp(`${backEndMaster}/marital`, '', [])
 
   // --------------------------------------- TEMPAT TINGGAL

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const useHttp = (url, token, dependencies) => {
@@ -7,10 +7,9 @@ const useHttp = (url, token, dependencies) => {
   if (token !== '') {
     axios.defaults.headers.common.Authorization = token
   }
-  const { current: urls } = useRef(url)
-  console.log('useHttp -> urls', urls)
-
-  const { current: tkn } = useRef(token)
+  // const { current: urls } = useRef(url)
+  // console.log('useHttp -> urls', urls)
+  // const { current: tkn } = useRef(token)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +22,7 @@ const useHttp = (url, token, dependencies) => {
     if (dependencies === [] || dependencies.length === 0) {
       fetchData()
     }
-  }, [urls, tkn, dependencies])
+  }, dependencies)
 
   return [fetchedData]
 }
