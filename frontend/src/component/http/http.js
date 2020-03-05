@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const useHttp = (url, token, deps) => {
+const useHttp = (url, token, dependencies) => {
   const [fetchedData, setFetchedData] = useState([])
 
   if (token !== '') {
@@ -14,7 +14,7 @@ const useHttp = (url, token, deps) => {
       setFetchedData(result.data)
     }
     fetchData()
-  }, [deps])
+  }, dependencies)
 
   return [fetchedData]
 }

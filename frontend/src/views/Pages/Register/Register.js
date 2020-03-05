@@ -66,31 +66,32 @@ const Register = props => {
   } = state
 
   // --------------------------------------- DidMount get Token
-  const [tokenRegister] = useHttp(`${backEndRegister}`, '', '')
+  const [tokenRegister] = useHttp(`${backEndRegister}`, '', [])
   // console.log('TCL: backEndRegister', tokenRegister)
 
   // --------------------------------------- PRIBADI
-  const [agamaList] = useHttp(`${backEndMaster}/agama`, '', '')
+  const [agamaList] = useHttp(`${backEndMaster}/agama`, '', [])
   // const [statusNikahList] = useHttp(`${backEndMaster}/marital`, '', [])
 
   // --------------------------------------- TEMPAT TINGGAL
-  const [propinsiList] = useHttp(`${backEndMaster}/propinsi`, '', '')
+  const [propinsiList] = useHttp(`${backEndMaster}/propinsi`, '', [])
+  // const [kotaList] = useHttp(`${backEndMaster}/kota/${propinsi}`, '', [propinsi])
   // const [kotaList] = useHttp(`${backEndMaster}/kota/${propinsi}`, '', propinsi)
   // const [kecamatanList] = useHttp(`${backEndMaster}/kecamatan/${kota}`, '', [kota])
   // const [KelurahanList] = useHttp(`${backEndMaster}/kelurahan/${kecamatan}`, '', [kecamatan])
 
   const [kotaList, setkotaList] = useState([])
-
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (propinsiku) => {
       const result = await axios(
-        `${backEndMaster}/kota/${propinsi}`
+        `${backEndMaster}/kota/${propinsiku}`
       )
       setkotaList(result.data)
     }
     fetchData()
   }, [propinsi])
   console.log('propinsi', propinsi)
+  console.log('kotaList', kotaList)
 
   // const tokenRegister = []
   // const agamaList = []
