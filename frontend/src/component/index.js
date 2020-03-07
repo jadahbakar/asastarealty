@@ -7,6 +7,7 @@ import PrivateRoute from './PrivateRoute'
 import Labelku from './Labelku'
 import LogoSVG from './LogoSVG'
 import useHttp from './http'
+import useFetch from './useFetch'
 import MyAlert from './MyAlert'
 
-export { Inputan, InputanMask, InputanPassword, InputanSelect, PrivateRoute, Labelku, LogoSVG, useHttp, InputanNumber, MyAlert }
+export { Inputan, InputanMask, InputanPassword, InputanSelect, PrivateRoute, Labelku, LogoSVG, useHttp, InputanNumber, MyAlert, useFetch }

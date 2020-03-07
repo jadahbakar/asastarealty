@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useReducer, useRef, useEffect } from 'react'
 import { Button, Card, Input, CardHeader, CardBody, CardFooter, Col, Container, Row, Label, Form } from 'reactstrap'
-import { Inputan, InputanPassword, InputanSelect, useHttp, MyAlert } from 'component'
+import { Inputan, InputanPassword, InputanSelect, useHttp, MyAlert, useFetch } from 'component'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 import { API_ROOT } from 'api'
@@ -62,27 +62,37 @@ const Register = props => {
     kodePOSKTP,
     checkedSama,
     email,
-    password
+    password,
+    kotaList
   } = state
 
   // --------------------------------------- DidMount get Token
-  const [tokenRegister] = useHttp(`${backEndRegister}`, '', [])
+  // const [tokenRegister] = useHttp(`${backEndRegister}`, '', [])
+  const [tokenRegister] = useFetch(`${backEndRegister}`, '')
 
   // --------------------------------------- PRIBADI
-  const [agamaList] = useHttp(`${backEndMaster}/agama`, '', [])
-  const [statusNikahList] = useHttp(`${backEndMaster}/marital`, '', [])
+  // const [agamaList] = useHttp(`${backEndMaster}/agama`, '', [])
+  const [agamaList] = useFetch(`${backEndMaster}/agama`, '')
+
+  // const [statusNikahList] = useHttp(`${backEndMaster}/marital`, '', [])
+  const [statusNikahList] = useFetch(`${backEndMaster}/marital`, '')
 
   // --------------------------------------- TEMPAT TINGGAL
-  const [propinsiList] = useHttp(`${backEndMaster}/propinsi`, '', [])
-  const [kotaList] = useHttp(`${backEndMaster}/kota/${propinsi}`, '', [propinsi])
-  const [kecamatanList] = useHttp(`${backEndMaster}/kecamatan/${kota}`, '', [kota])
-  const [KelurahanList] = useHttp(`${backEndMaster}/kelurahan/${kecamatan}`, '', [kecamatan])
+  // const [propinsiList] = useHttp(`${backEndMaster}/propinsi`, '', [])
+  // const [kotaList] = useHttp(`${backEndMaster}/kota/${propinsi}`, '', [propinsi])
+  // const [kecamatanList] = useHttp(`${backEndMaster}/kecamatan/${kota}`, '', [kota])
+  // const [KelurahanList] = useHttp(`${backEndMaster}/kelurahan/${kecamatan}`, '', [kecamatan])
+
+  const [propinsiList] = useFetch(`${backEndMaster}/propinsi`, '')
+  // const [kotaList] = useFetch(`${backEndMaster}/kota/${propinsi}`, '')
+  const [kecamatanList] = useFetch(`${backEndMaster}/kecamatan/${kota}`, '')
+  const [KelurahanList] = useFetch(`${backEndMaster}/kelurahan/${kecamatan}`, '')
 
   const propinsiSelectHandler = e => {
     kecamatanList.length = 0
     KelurahanList.length = 0
     dispatch({
-      type: FIELD,
+      type: PROPINSI_SELECT,
       fieldName: 'propinsi',
       payload: e.currentTarget.value
     })
@@ -114,10 +124,15 @@ const Register = props => {
   }
 
   // --------------------------------------- KTP
-  const [propinsiKTPList] = useHttp(`${backEndMaster}/propinsi`, '', [])
-  const [kotaKTPList] = useHttp(`${backEndMaster}/kota/${propinsiKTP}`, '', [propinsiKTP])
-  const [kecamatanKTPList] = useHttp(`${backEndMaster}/kecamatan/${kotaKTP}`, '', [kotaKTP])
-  const [KelurahanKTPList] = useHttp(`${backEndMaster}/kelurahan/${kecamatanKTP}`, '', [kecamatanKTP])
+  // const [propinsiKTPList] = useHttp(`${backEndMaster}/propinsi`, '', [])
+  // const [kotaKTPList] = useHttp(`${backEndMaster}/kota/${propinsiKTP}`, '', [propinsiKTP])
+  // const [kecamatanKTPList] = useHttp(`${backEndMaster}/kecamatan/${kotaKTP}`, '', [kotaKTP])
+  // const [KelurahanKTPList] = useHttp(`${backEndMaster}/kelurahan/${kecamatanKTP}`, '', [kecamatanKTP])
+
+  const [propinsiKTPList] = useFetch(`${backEndMaster}/propinsi`, '')
+  const [kotaKTPList] = useFetch(`${backEndMaster}/kota/${propinsi}`, '')
+  const [kecamatanKTPList] = useFetch(`${backEndMaster}/kecamatan/${kota}`, '')
+  const [KelurahanKTPList] = useFetch(`${backEndMaster}/kelurahan/${kecamatan}`, '')
 
   const propinsiKTPSelectHandler = e => {
     kecamatanKTPList.length = 0

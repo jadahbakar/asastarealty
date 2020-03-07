@@ -1,5 +1,9 @@
 // import { API_ROOT } from 'api'
 // import axios from 'axios's
+import { useFetch } from 'component'
+import { API_ROOT } from 'api'
+
+const backEndMaster = `${API_ROOT}/master`
 
 export const CHECKED = 'CHECKED'
 export const UNCHECKED = 'UNCHECKED'
@@ -66,7 +70,9 @@ export const initialState = {
   kodePOSKTP: '',
   checkedSama: false,
   email: '',
-  password: ''
+  password: '',
+  kotaList: []
+  // useFetch(`${backEndMaster}/kota/${action.payload}`)
 }
 
 // --------------------------------------- Only Number
@@ -74,6 +80,13 @@ const filterNonDigits = value => (value ? value.replace(/\D+/, '') : '')
 
 const registerReducer = (state, action) => {
   switch (action.type) {
+    case PROPINSI_SELECT: {
+      return {
+        ...state,
+        [action.fieldName]: action.payload,
+        kotaList: useFetch(`${backEndMaster}/kota/${action.payload}`)
+      }
+    }
     case FIELD: {
       return {
         ...state,
