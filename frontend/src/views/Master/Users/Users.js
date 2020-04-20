@@ -25,7 +25,6 @@ const CardContent = () => {
 
   useEffect(() => {
     context.reloadTableData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const content = (
