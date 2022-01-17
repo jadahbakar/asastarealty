@@ -84,7 +84,7 @@ const registerReducer = (state, action) => {
       return {
         ...state,
         [action.fieldName]: action.payload,
-        kotaList: useFetch(`${backEndMaster}/kota/${action.payload}`)
+        // kotaList: useFetch(`${backEndMaster}/kota/${action.payload}`)
       }
     }
     case FIELD: {

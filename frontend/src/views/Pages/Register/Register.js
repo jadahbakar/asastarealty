@@ -62,8 +62,8 @@ const Register = props => {
     kodePOSKTP,
     checkedSama,
     email,
-    password,
-    kotaList
+    password
+    // ,kotaList
   } = state
 
   // --------------------------------------- DidMount get Token
@@ -84,7 +84,7 @@ const Register = props => {
   // const [KelurahanList] = useHttp(`${backEndMaster}/kelurahan/${kecamatan}`, '', [kecamatan])
 
   const [propinsiList] = useFetch(`${backEndMaster}/propinsi`, '')
-  // const [kotaList] = useFetch(`${backEndMaster}/kota/${propinsi}`, '')
+  const [kotaList] = useFetch(`${backEndMaster}/kota/${propinsi}`, '')
   const [kecamatanList] = useFetch(`${backEndMaster}/kecamatan/${kota}`, '')
   const [KelurahanList] = useFetch(`${backEndMaster}/kelurahan/${kecamatan}`, '')
 
